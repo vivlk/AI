@@ -1,0 +1,1450 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Роадмап AI-модели</title>
+<meta name="description" content="Пошаговый план запуска фотореалистичной AI-модели на Higgsfield: концепции, фото и видео, стек, правила площадок, метрики и монетизация.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sunset-gradient hero panel with a glass progress card, floating pill nav, airy white rounded cards on a warm grey-to-peach page */
+:root{
+  --page-top:#EEEDEB;
+  --page-mid:#F1E7DD;
+  --page-end:#F3D6BB;
+  --card:#FFFFFF;
+  --card-2:#F6F4F1;
+  --ink:#141414;
+  --ink-2:#5E5C59;
+  --ink-3:#9A9692;
+  --line:#ECE8E3;
+  --accent:#E2541B;
+  --accent-deep:#B3260C;
+  --accent-soft:#FDEEE4;
+  --accent-ink:#B8410F;
+  --on-accent:#FFFFFF;
+  --sunset:linear-gradient(140deg,#6E0A03 0%,#A51A08 26%,#D9440F 58%,#F07A33 82%,#F6A36A 100%);
+  --fill:linear-gradient(90deg,#C42E0D,#F07A33);
+  --rec:#C42E0D;
+  --ok:#2F8A57;
+  --shadow:0 1px 2px rgba(60,30,10,.04),0 12px 32px -18px rgba(60,30,10,.18);
+  --f-sans:"Onest","Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r-s:12px;
+  --r-m:22px;
+  --r-l:32px;
+  --maxw:1200px;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px;background:var(--page-top)}
+body{background:linear-gradient(180deg,var(--page-top) 0%,var(--page-mid) 55%,var(--page-end) 100%);color:var(--ink);font-family:var(--f-sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration-color:rgba(226,84,27,.5);text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{text-decoration-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+::selection{background:var(--accent);color:#fff}
+h1,h2,h3,h4{font-family:var(--f-sans);margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,6.4vw,78px);font-weight:500;line-height:1;letter-spacing:-.045em}
+h2{font-size:clamp(28px,3.6vw,44px);font-weight:500;line-height:1.08;letter-spacing:-.035em}
+h3{font-size:clamp(17px,1.6vw,20px);font-weight:500;line-height:1.3;letter-spacing:-.015em}
+h4{font-size:13px;font-weight:500;color:var(--ink-2)}
+p{margin:0}
+ul,ol{margin:0}
+code,pre{font-family:var(--f-mono)}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:20px}
+.eyebrow{font-size:14px;color:var(--ink-3)}
+.lead{font-size:clamp(16px,1.45vw,18px);line-height:1.6;color:var(--ink-2);max-width:62ch}
+.muted{color:var(--ink-2)}
+.small{font-size:14px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* hero */
+.hero{padding-block:20px 0}
+.hero-panel{position:relative;background:var(--sunset);color:#fff;border-radius:var(--r-l);padding:clamp(24px,4vw,48px);overflow:hidden;isolation:isolate}
+.hero-panel::after{content:"AI";position:absolute;right:-.06em;bottom:-.28em;font-size:clamp(160px,26vw,380px);font-weight:600;letter-spacing:-.06em;line-height:1;color:rgba(255,255,255,.08);z-index:-1;pointer-events:none}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:clamp(36px,6vw,72px)}
+.mark{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.85)}
+.mark i{width:30px;height:30px;border-radius:50%;background:#fff;display:grid;place-items:center;font-style:normal;font-weight:600;font-size:12px;color:var(--accent-deep);letter-spacing:-.02em}
+.hero-date{font-size:13px;color:rgba(255,255,255,.75);padding:7px 14px;border-radius:99px;background:rgba(255,255,255,.12)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,360px);gap:40px;align-items:end}
+.hero-copy{display:grid;gap:20px;min-width:0}
+.hero-copy .eyebrow{color:rgba(255,255,255,.75)}
+.hero-copy .lead{color:rgba(255,255,255,.85)}
+.hero-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:150px;padding:12px 22px;border-radius:99px;background:#fff;color:var(--ink);font-size:14px;font-weight:500;text-decoration:none;transition:transform .2s,background .2s}
+.pill:hover{transform:translateY(-1px)}
+.pill.ghost{background:rgba(255,255,255,.14);color:#fff}
+.glass-stack{position:relative;padding-top:16px}
+.glass-stack::before,.glass-stack::after{content:"";position:absolute;left:8%;right:8%;top:0;height:30px;border-radius:22px 22px 0 0;background:rgba(255,255,255,.1)}
+.glass-stack::after{left:4%;right:4%;top:8px;background:rgba(255,255,255,.14)}
+.glass{position:relative;z-index:1;border-radius:var(--r-m);padding:20px 22px 22px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.22);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);display:grid;gap:14px}
+.glass-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.85)}
+.glass-top b{font-weight:600;letter-spacing:.02em}
+.glass-num{font-size:clamp(38px,4.4vw,52px);font-weight:500;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.glass-num span{color:rgba(255,255,255,.55)}
+.glass-num #pDone{color:#fff}
+.glass .meter{background:rgba(255,255,255,.22)}
+.glass .meter i{background:#fff}
+.glass-thesis{font-size:15px;line-height:1.4;color:#fff}
+.glass-thesis span{color:rgba(255,255,255,.7)}
+.sync{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.8);justify-self:start;padding:5px 11px;border-radius:99px;background:rgba(255,255,255,.12)}
+.sync::before{content:"";width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.7);flex:none}
+.sync[data-state="cloud"]::before{background:#8CF0B4}
+.sync[data-state="readonly"]::before{background:#FFC2B0}
+.meter{height:6px;background:var(--card-2);border-radius:99px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--fill);border-radius:inherit;transition:width .5s cubic-bezier(.2,.7,.2,1)}
+
+/* fact cards */
+.facts{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:14px 0 0}
+.facts div{background:var(--card);border-radius:var(--r-m);padding:18px 18px 20px;box-shadow:var(--shadow);display:grid;gap:10px;align-content:start;min-width:0}
+.facts dt{font-size:13px;color:var(--ink-2)}
+.facts dd{margin:0;display:grid;gap:4px}
+.facts dd b{font-size:clamp(22px,2.2vw,28px);font-weight:500;letter-spacing:-.035em;line-height:1.05}
+.facts dd b span{color:var(--ink-3)}
+.facts dd small{font-size:12.5px;line-height:1.4;color:var(--ink-3)}
+
+/* nav */
+.modes{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);z-index:30;margin-top:22px;pointer-events:none}
+.modes .wrap{display:flex;justify-content:center}
+.modes ul{pointer-events:auto;display:flex;gap:2px;list-style:none;padding:5px;margin:0;border-radius:99px;background:rgba(255,255,255,.78);-webkit-backdrop-filter:saturate(1.4) blur(16px);backdrop-filter:saturate(1.4) blur(16px);box-shadow:var(--shadow);overflow-x:auto;scrollbar-width:none;max-width:100%}
+.modes ul::-webkit-scrollbar{display:none}
+.modes a{display:block;padding:9px 16px;border-radius:99px;font-size:14px;color:var(--ink-2);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+.modes a:hover{color:var(--ink);background:var(--card-2)}
+.modes a.on{background:var(--ink);color:#fff}
+
+/* sections */
+.sec{padding-block:80px 8px}
+.sec-head{display:grid;gap:12px;margin-bottom:32px;max-width:780px}
+.sub{display:grid;gap:16px;margin-top:48px}
+.sub-first{margin-top:0}
+.fine{max-width:80ch}
+.side-head{display:grid;gap:8px;align-content:start}
+
+/* principles */
+.principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.principles>div{display:grid;gap:8px;align-content:start;padding:22px;background:rgba(255,255,255,.55);border-radius:var(--r-m)}
+.principles h3{font-size:17px}
+.principles p{color:var(--ink-2);font-size:14.5px}
+
+/* gantt */
+.gantt-scroll{overflow-x:auto;border-radius:var(--r-m);background:var(--card);box-shadow:var(--shadow)}
+.gantt{--gl:200px;min-width:860px;font-size:13px}
+.g-row{display:grid;grid-template-columns:var(--gl) repeat(24,minmax(0,1fr));align-items:center;position:relative}
+.g-row+.g-row{border-top:1px solid var(--line)}
+.g-head{background:var(--card)}
+.g-month{font-size:12px;color:var(--ink-2);padding:14px 8px 6px;white-space:nowrap}
+.g-weeks .g-wk{font-size:11px;color:var(--ink-3);text-align:center;padding:4px 0 10px;font-variant-numeric:tabular-nums}
+.g-label{grid-column:1;position:sticky;left:0;z-index:2;background:var(--card);align-self:stretch;padding:10px 16px;display:flex;gap:10px;align-items:center;text-decoration:none;min-width:0}
+.g-label b{font-size:12px;font-weight:500;color:var(--ink-3);flex:none;width:22px}
+.g-label span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g-label:hover span{color:var(--accent-ink)}
+.g-grid{position:absolute;inset:0 0 0 var(--gl);pointer-events:none;background:repeating-linear-gradient(to right,transparent 0,transparent calc(100%/24 - 1px),var(--line) calc(100%/24 - 1px),var(--line) calc(100%/24))}
+.g-bar{position:relative;height:28px;margin-block:10px;border-radius:99px;background:#F4EEE8;overflow:hidden;display:flex;align-items:center;min-width:0}
+.g-bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--fill);transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.g-bar span{position:relative;padding-inline:12px;font-size:11.5px;color:var(--ink-2);white-space:nowrap}
+.g-bar.open{background:repeating-linear-gradient(135deg,#F4EEE8 0 6px,#FBF8F5 6px 12px)}
+.g-cell{position:relative;height:44px}
+.g-mark{position:absolute;top:13px;left:0;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink);white-space:nowrap;transform:translateX(-5px)}
+.g-mark::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);flex:none}
+.g-mark.end{left:auto;right:0;transform:translateX(5px);flex-direction:row-reverse}
+.g-stick{position:sticky;left:0;z-index:2;align-self:stretch;display:flex;align-items:center;background:var(--card)}
+.g-legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;font-size:13px;color:var(--ink-2)}
+.g-legend span{display:inline-flex;align-items:center;gap:8px}
+.g-legend i{width:22px;height:10px;border-radius:99px;background:#EDE5DD}
+.g-legend i.f{background:var(--fill)}
+.g-legend i.o{background:repeating-linear-gradient(135deg,#EDE5DD 0 4px,#FBF8F5 4px 8px)}
+.g-legend i.d{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+
+/* concepts */
+.concepts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+.concept{position:relative;background:var(--card);border-radius:var(--r-m);padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0;box-shadow:var(--shadow);outline:1.5px solid transparent;transition:outline-color .2s}
+.concept.is-rec{background:linear-gradient(180deg,#FFF5EE 0,#FFFFFF 140px)}
+.concept.is-picked{outline-color:var(--accent)}
+.c-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.c-letter{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--card-2);font-weight:500;font-size:17px}
+.is-rec .c-letter{background:var(--sunset);color:#fff}
+.c-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:5px 11px;border-radius:99px;background:var(--card-2);color:var(--ink-2);white-space:nowrap}
+.chip.rec{background:var(--accent-soft);color:var(--accent-ink)}
+.chip.picked{background:var(--ink);color:#fff}
+.c-name{display:grid;gap:4px}
+.c-name h3{font-size:22px;letter-spacing:-.03em}
+.c-name p{font-size:13.5px;color:var(--ink-3)}
+.c-log{font-size:15px;line-height:1.55}
+.c-bio{font-size:13px;line-height:1.6;background:var(--card-2);border-radius:var(--r-s);padding:14px 16px;color:var(--ink)}
+.c-bio b{display:block;font-weight:600}
+.c-bio .lbl{display:block;font-size:12px;color:var(--ink-3);margin-bottom:6px}
+.c-facts{display:grid;gap:12px;margin:0}
+.c-facts div{display:grid;gap:2px}
+.c-facts dt{font-size:12.5px;color:var(--ink-3)}
+.c-facts dd{margin:0;font-size:14.5px;line-height:1.5}
+.c-note{font-size:13.5px;color:var(--ink-2)}
+.c-pick{margin-top:auto;padding-top:4px}
+.btn{appearance:none;font:inherit;font-size:14px;font-weight:500;padding:11px 20px;border-radius:99px;border:0;background:var(--card-2);color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:#ECE7E1}
+.btn[aria-pressed="true"]{background:var(--ink);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-s{padding:7px 14px;font-size:13px}
+.verdict{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px 44px;margin-top:24px;align-items:start}
+.verdict-text{display:grid;gap:14px;padding-top:10px}
+.verdict-text h3{font-size:22px;letter-spacing:-.03em}
+
+/* tables */
+.table-wrap{overflow-x:auto;border-radius:var(--r-m);background:var(--card);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.45}
+th,td{text-align:left;vertical-align:top;padding:13px 16px;border-bottom:1px solid var(--line)}
+thead th{font-size:12.5px;font-weight:500;color:var(--ink-3);white-space:nowrap;padding-top:16px}
+tbody th{font-weight:500}
+tbody tr:last-child>*{border-bottom:0}
+tfoot td,tfoot th{border-top:1px solid var(--line);border-bottom:0;font-weight:600;background:var(--card-2)}
+td.num,th.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.t-min{min-width:640px}
+.t-wide{min-width:760px}
+.score{min-width:500px}
+.score td,.score th{padding-inline:12px}
+.score td{white-space:nowrap}
+.dots{display:inline-flex;gap:3px;vertical-align:middle;margin-right:8px}
+.dots i{width:8px;height:8px;border-radius:50%;background:#EDE5DD}
+.dots i.on{background:var(--accent)}
+.score tfoot td{font-size:16px}
+.score .best{color:var(--accent-ink)}
+
+/* phases */
+.phase{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:24px 48px;padding:32px;margin-top:14px;background:var(--card);border-radius:var(--r-l);box-shadow:var(--shadow);scroll-margin-top:84px}
+.ph-meta{display:grid;gap:16px;align-content:start;position:sticky;top:96px}
+.ph-code{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ph-code b{font-size:13px;font-weight:500;padding:5px 11px;border-radius:99px;background:var(--sunset);color:#fff}
+.ph-code span{font-size:13px;color:var(--ink-3)}
+.ph-meta h3{font-size:clamp(24px,2.4vw,30px);letter-spacing:-.035em;line-height:1.1}
+.ph-goal{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.ph-dl{display:grid;gap:12px;margin:0}
+.ph-dl div{display:grid;gap:2px}
+.ph-dl dt{font-size:12.5px;color:var(--ink-3)}
+.ph-dl dd{margin:0;font-size:14.5px;line-height:1.5}
+.tools{display:flex;flex-wrap:wrap;gap:6px}
+.tools span{font-size:12.5px;padding:4px 10px;border-radius:99px;background:var(--card-2);color:var(--ink);white-space:nowrap}
+.ph-prog{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
+.ph-prog span{font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.ph-body{display:grid;gap:18px;align-content:start;min-width:0}
+.checklist{list-style:none;padding:0;margin:0;display:grid;gap:2px}
+.check{display:grid;grid-template-columns:24px minmax(0,1fr);gap:14px;padding:12px 14px;border-radius:var(--r-s);cursor:pointer;transition:background .15s}
+.check:hover{background:var(--card-2)}
+.check input{appearance:none;-webkit-appearance:none;width:22px;height:22px;margin:1px 0 0;border:1.5px solid #D9D2CA;border-radius:50%;background:#fff;display:grid;place-content:center;cursor:pointer;transition:background .15s,border-color .15s}
+.check input:hover{border-color:var(--accent)}
+.check input:checked{background:var(--sunset);border-color:transparent}
+.check input:checked::after{content:"";width:9px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:translate(0,-1px) rotate(-45deg)}
+.check input:disabled{cursor:not-allowed;opacity:.7}
+.check .t{display:grid;gap:3px;min-width:0}
+.check .t b{font-weight:500;font-size:15.5px;line-height:1.4}
+.check .t small{font-size:14px;line-height:1.5;color:var(--ink-2)}
+.check.done .t b{color:var(--ink-3)}
+.note{display:grid;gap:6px;padding:18px 20px;border-radius:var(--r-m);background:var(--accent-soft)}
+.note h4{color:var(--accent-ink)}
+.note p{font-size:14.5px;line-height:1.55}
+
+/* realism */
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.panel{background:var(--card);border-radius:var(--r-l);padding:28px;display:grid;gap:22px;align-content:start;min-width:0;box-shadow:var(--shadow)}
+.panel>h3{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:24px;letter-spacing:-.03em}
+.dl-list{display:grid;gap:8px}
+.dl-list h4.do{color:var(--ok)}
+.dl-list h4.dont{color:var(--rec)}
+.dl-list h4.chk{color:var(--ink)}
+.marks{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.marks li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;font-size:14.5px;line-height:1.5}
+.marks li::before{font-weight:600;font-size:14px;line-height:1.55}
+.marks.plus li::before{content:"+";color:var(--ok)}
+.marks.minus li::before{content:"–";color:var(--rec)}
+.marks.eye li::before{content:"○";color:var(--ink-3);font-size:11px;line-height:2}
+.marks.x li::before{content:"×";color:var(--rec)}
+.wide-note{margin-top:14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 18px;align-items:start;padding:20px 24px;border-radius:var(--r-m);background:rgba(255,255,255,.55)}
+
+/* prompts */
+.prompts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+.prompt{background:var(--card);border-radius:var(--r-m);overflow:hidden;display:flex;flex-direction:column;min-width:0;box-shadow:var(--shadow)}
+.p-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:20px 20px 14px}
+.p-head div{display:grid;gap:8px;min-width:0}
+.p-head .chip{justify-self:start}
+.p-head h3{font-size:18px;letter-spacing:-.02em}
+.prompt pre{margin:0 12px;padding:16px;border-radius:var(--r-s);background:var(--card-2);font-size:12.5px;line-height:1.65;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.p-body{margin:0 12px;padding:16px;border-radius:var(--r-s);background:var(--card-2);display:grid;gap:12px}
+.p-foot{padding:14px 20px 18px;font-size:13.5px;color:var(--ink-2)}
+.copy.ok{background:var(--ink);color:#fff}
+.ref-list{list-style:none;padding:0;margin:0;display:grid;gap:8px;counter-reset:r}
+.ref-list li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;font-size:14.5px;line-height:1.5;counter-increment:r}
+.ref-list li::before{content:counter(r);font-size:11px;font-weight:600;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;margin-top:1px}
+
+/* rules */
+.thesis{font-size:clamp(20px,2.3vw,26px);font-weight:500;line-height:1.3;letter-spacing:-.025em;max-width:30ch;color:var(--ink-2)}
+.thesis span{color:var(--accent-ink)}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:8px}
+.rule{background:var(--card);border-radius:var(--r-m);padding:22px;display:grid;gap:12px;align-content:start;min-width:0;box-shadow:var(--shadow)}
+.rule-head{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:10px}
+.rule ul{list-style:none;padding:0;display:grid;gap:8px}
+.rule li{font-size:14.5px;line-height:1.5;padding-left:14px;position:relative}
+.rule li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:#D9D2CA}
+.rule li.hot::before{background:var(--accent)}
+.ru{margin-top:14px;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px 44px;padding:32px;border-radius:var(--r-l);background:var(--sunset);color:#fff}
+.ru .eyebrow{color:rgba(255,255,255,.7)}
+.ru ul{list-style:none;padding:0;display:grid;gap:10px}
+.ru li{font-size:15px;line-height:1.5;padding-left:16px;position:relative;color:rgba(255,255,255,.92)}
+.ru li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.8)}
+.lines{margin-top:14px;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px 44px;align-items:start;padding:32px;border-radius:var(--r-l);background:var(--card);box-shadow:var(--shadow)}
+.lines .marks{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 28px}
+.disclaimer{margin-top:18px;font-size:13.5px;color:var(--ink-3);max-width:80ch}
+
+/* metrics */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.stat{background:var(--card);border-radius:var(--r-m);padding:20px;display:grid;gap:8px;align-content:start;min-width:0;box-shadow:var(--shadow)}
+.stat b{font-weight:500;font-size:34px;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1}
+.stat span{font-size:13.5px;line-height:1.45;color:var(--ink-2)}
+.stat small{font-size:12px;color:var(--ink-3)}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.kpis div{display:grid;gap:4px;padding:18px 20px;border-radius:var(--r-m);background:rgba(255,255,255,.55)}
+.kpis b{font-weight:500}
+.kpis span{font-size:14px;color:var(--ink-2);line-height:1.5}
+
+/* footer */
+.foot{padding-block:72px 64px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:28px 48px;padding:32px;border-radius:var(--r-l);background:rgba(255,255,255,.6)}
+details.src summary{cursor:pointer;font-size:15px;font-weight:500;color:var(--ink);list-style:none;display:inline-flex;align-items:center;gap:10px}
+details.src summary::-webkit-details-marker{display:none}
+details.src summary::before{content:"+";display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font-size:15px;line-height:1}
+details.src[open] summary::before{content:"–"}
+.src ol{margin-top:18px;padding-left:22px;display:grid;gap:7px;font-size:14px;line-height:1.5;color:var(--ink-2)}
+.src a{color:var(--ink)}
+
+/* responsive */
+@media (max-width:1080px){
+  .facts{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .rules{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:980px){
+  .concepts,.verdict,.prompts{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:minmax(0,1fr);gap:28px}
+  .phase{grid-template-columns:minmax(0,1fr);gap:20px;padding:24px}
+  .ph-meta{position:static}
+  .split{grid-template-columns:minmax(0,1fr)}
+  .principles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ru,.lines,.foot-grid{grid-template-columns:minmax(0,1fr)}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:620px){
+  .sec{padding-block:60px 4px}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .principles,.rules,.kpis{grid-template-columns:minmax(0,1fr)}
+  .lines .marks{grid-template-columns:minmax(0,1fr)}
+  .gantt{--gl:128px;min-width:720px}
+  .g-label{gap:8px;padding:10px}
+  .g-label span{white-space:normal;line-height:1.25}
+  .check{padding:12px 4px}
+  .phase,.panel,.ru,.lines,.foot-grid{padding:20px}
+  .concept{padding:20px}
+  .hero-top{margin-bottom:32px}
+  .hero-date{display:none}
+  .modes .wrap{padding-inline:12px}
+  .modes a{padding:8px 13px;font-size:13px}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-panel">
+      <div class="hero-top">
+        <span class="mark"><i>AI</i>Проект AI-модели</span>
+        <span class="hero-date">Старт 5 октября 2026</span>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">План запуска AI-инфлюенсера на Higgsfield</p>
+          <h1>Роадмап AI-модели</h1>
+          <p class="lead">Фотореалистичная девушка-блогер с продуманной биографией: характер, лицо, фото и видео без признаков AI-слопа, запуск и первые деньги. Отмечай выполненные шаги, прогресс сохраняется.</p>
+          <div class="hero-btns"><a class="pill" href="#phases">Смотреть этапы</a><a class="pill ghost" href="#persona">Концепции персонажа</a></div>
+        </div>
+        <div class="glass-stack">
+          <div class="glass">
+            <div class="glass-top"><b>•••• 24 недели</b><span>8 этапов</span></div>
+            <p class="glass-num"><span id="pDone">0</span><span> / </span><span id="pTotal">0</span></p>
+            <div class="meter" id="pMeter" role="progressbar" aria-label="Общий прогресс" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+            <p class="glass-thesis">Реализм в кадре. <span>Честность в профиле: метка AI сохраняет охваты в Instagram.</span></p>
+            <span class="sync" id="sync" data-state="local" aria-live="polite">Прогресс хранится в этом браузере</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <dl class="facts">
+      <div><dt>Бюджет</dt><dd><b>$50–150</b><small>в месяц на инструменты</small></dd></div>
+      <div><dt>Аудитория</dt><dd><b>EN</b><small>международная</small></dd></div>
+      <div><dt>Срок</dt><dd><b>24 <span>нед.</span></b><small>с 5 октября 2026</small></dd></div>
+      <div><dt>Запуск</dt><dd><b>8<span>-я нед.</span></b><small>конец ноября</small></dd></div>
+      <div><dt>Площадки</dt><dd><b>3</b><small>Instagram, Threads, Shorts. TikTok при доступе</small></dd></div>
+      <div><dt>Генерация</dt><dd><b>Higgsfield</b><small>Soul 2.0, Kling 3.0, Seedance 2.0</small></dd></div>
+    </dl>
+  </div>
+</header>
+
+<nav class="modes" aria-label="Разделы">
+  <div class="wrap">
+    <ul>
+      <li><a href="#plan">Карта</a></li>
+      <li><a href="#persona">Персона</a></li>
+      <li><a href="#phases">Этапы</a></li>
+      <li><a href="#stack">Стек</a></li>
+      <li><a href="#realism">Реализм</a></li>
+      <li><a href="#prompts">Промпты</a></li>
+      <li><a href="#rules">Правила</a></li>
+      <li><a href="#metrics">Метрики</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+<section class="sec" id="plan">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Карта проекта</p>
+      <h2>24 недели от идеи до первых денег</h2>
+      <p class="lead">Первые семь недель уходят на подготовку: персонаж, лицо, фото- и видеоконвейер. Запуск в конце ноября, дальше рост и монетизация по метрикам. Полосы заполняются, когда ты отмечаешь шаги.</p>
+    </div>
+
+    <div class="gantt-scroll" role="region" aria-label="Этапы по неделям" tabindex="0">
+      <div class="gantt">
+        <div class="g-row g-head">
+          <div class="g-month g-stick" style="grid-column:1;border-left:0">Этап</div>
+          <div class="g-month" style="grid-column:2/6">Октябрь</div>
+          <div class="g-month" style="grid-column:6/10">Ноябрь</div>
+          <div class="g-month" style="grid-column:10/15">Декабрь</div>
+          <div class="g-month" style="grid-column:15/19">Январь</div>
+          <div class="g-month" style="grid-column:19/23">Февраль</div>
+          <div class="g-month" style="grid-column:23/26">Март</div>
+        </div>
+        <div class="g-row g-weeks">
+          <div class="g-wk g-stick" style="grid-column:1;text-align:left;padding-left:14px">неделя</div>
+          <div class="g-wk">1</div><div class="g-wk">2</div><div class="g-wk">3</div><div class="g-wk">4</div><div class="g-wk">5</div><div class="g-wk">6</div><div class="g-wk">7</div><div class="g-wk">8</div><div class="g-wk">9</div><div class="g-wk">10</div><div class="g-wk">11</div><div class="g-wk">12</div><div class="g-wk">13</div><div class="g-wk">14</div><div class="g-wk">15</div><div class="g-wk">16</div><div class="g-wk">17</div><div class="g-wk">18</div><div class="g-wk">19</div><div class="g-wk">20</div><div class="g-wk">21</div><div class="g-wk">22</div><div class="g-wk">23</div><div class="g-wk">24</div>
+        </div>
+        <div class="g-row" data-phase="f0"><span class="g-grid"></span><a class="g-label" href="#f0"><b>Ф1</b><span>Фундамент</span></a><div class="g-bar" style="grid-column:2/3"><i></i><span>1</span></div></div>
+        <div class="g-row" data-phase="f1"><span class="g-grid"></span><a class="g-label" href="#f1"><b>Ф2</b><span>Персона и библия</span></a><div class="g-bar" style="grid-column:2/4"><i></i><span>1–2</span></div></div>
+        <div class="g-row" data-phase="f2"><span class="g-grid"></span><a class="g-label" href="#f2"><b>Ф3</b><span>Лицо и Soul ID</span></a><div class="g-bar" style="grid-column:3/5"><i></i><span>2–3</span></div></div>
+        <div class="g-row" data-phase="f3"><span class="g-grid"></span><a class="g-label" href="#f3"><b>Ф4</b><span>Фото-конвейер</span></a><div class="g-bar" style="grid-column:4/7"><i></i><span>3–5</span></div></div>
+        <div class="g-row" data-phase="f4"><span class="g-grid"></span><a class="g-label" href="#f4"><b>Ф5</b><span>Видео и голос</span></a><div class="g-bar" style="grid-column:5/9"><i></i><span>4–7</span></div></div>
+        <div class="g-row" data-phase="f5"><span class="g-grid"></span><a class="g-label" href="#f5"><b>Ф6</b><span>Упаковка и запуск</span></a><div class="g-bar" style="grid-column:7/9"><i></i><span>6–7</span></div></div>
+        <div class="g-row" data-phase="f6"><span class="g-grid"></span><a class="g-label" href="#f6"><b>Ф7</b><span>Рост</span></a><div class="g-bar open" style="grid-column:9/26"><i></i><span>8–24 и дальше</span></div></div>
+        <div class="g-row" data-phase="f7"><span class="g-grid"></span><a class="g-label" href="#f7"><b>Ф8</b><span>Монетизация</span></a><div class="g-bar open" style="grid-column:11/26"><i></i><span>с 10-й недели, по метрикам</span></div></div>
+        <div class="g-row g-ms" aria-label="Контрольные точки">
+          <span class="g-grid"></span>
+          <div class="g-wk g-stick" style="grid-column:1;text-align:left;padding-left:14px">точки</div>
+          <div class="g-cell" style="grid-column:5"><span class="g-mark">Soul ID готов</span></div>
+          <div class="g-cell" style="grid-column:9"><span class="g-mark">Запуск</span></div>
+          <div class="g-cell" style="grid-column:17"><span class="g-mark">Разбор 8 недель</span></div>
+          <div class="g-cell" style="grid-column:25"><span class="g-mark end">Итоги полугода</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="g-legend">
+      <span><i></i>План по неделям</span>
+      <span><i class="f"></i>Выполнено</span>
+      <span><i class="o"></i>Идет, пока растут метрики</span>
+      <span><i class="d"></i>Контрольная точка</span>
+    </div>
+
+    <div class="principles">
+      <div><h3>Жизнь важнее лица</h3><p>«Люди подписываются на жизнь, а не на картинки», так объясняют успех Aitana López ее авторы. Сначала библия персонажа, потом генерации.</p></div>
+      <div><h3>Лицо с изъянами</h3><p>Веснушки, родинка, неровная бровь. Слишком идеальное лицо считывается как AI с первого взгляда, это прямо пишет и Higgsfield.</p></div>
+      <div><h3>Эстетика телефона</h3><p>Один источник света, неидеальный кадр, серия из 8–12 снимков одной сцены. Никаких «8K» и «cinematic» в промптах.</p></div>
+      <div><h3>Короткие клипы, живые движения</h3><p>Клипы по 5–8 секунд, склеенные в ролик. Движения переносятся с реальных референсов через Motion Control или Genjutsu.</p></div>
+      <div><h3>Метка AI как условие роста</h3><p>Instagram режет рекомендации неотмеченным AI-профилям, ЕС требует раскрытия с 2 августа 2026, Higgsfield запрещает выдавать генерации за съемку.</p></div>
+      <div><h3>Деньги раньше подписчиков</h3><p>Первый доход быстрее приносят услуги и кейс, чем реклама: бренды пока осторожны с AI-инфлюенсерами.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="persona">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Персона</p>
+      <h2>Три концепции. Выбери одну</h2>
+      <p class="lead">Все три под англоязычную аудиторию, без откровенного контента и с открытой меткой AI. Имена рабочие: перед стартом проверь, свободны ли ники и нет ли известного человека с таким именем.</p>
+    </div>
+
+    <div class="concepts">
+      <article class="concept is-rec" data-concept-card="A">
+        <div class="c-top">
+          <span class="c-letter">A</span>
+          <div class="c-tags"><span class="chip rec">Рекомендую</span><span class="chip picked" data-picked hidden>Выбрано</span></div>
+        </div>
+        <div class="c-name">
+          <h3>Ines Holm, 26</h3>
+          <p>Копенгаген · дизайн, город, пленка</p>
+        </div>
+        <p class="c-log">Декоратор съемочных площадок: собирает сеты для небольших fashion-съемок, ездит по городу на старом зеленом велосипеде и снимает жизнь на пленочную мыльницу.</p>
+        <div class="c-bio"><span class="lbl">Био в профиле</span><b>Ines Holm</b>set &amp; prop stylist · Copenhagen<br>flea markets, film camera, too much coffee<br>AI-generated character · by [твоя студия]</div>
+        <dl class="c-facts">
+          <div><dt>Характер</dt><dd>Наблюдательная и самоироничная. На работе перфекционистка, дома хаос. Вечно опаздывает. Убеждена, что у старых вещей есть история, а у новых только ценник.</dd></div>
+          <div><dt>Визуальный код</dt><dd>Медное каре, веснушки, серебряные кольца, зеленый велосипед. Палитра: охра, хаки, молочный, графит, медь.</dd></div>
+          <div><dt>Столпы и рубрики</dt><dd>Работа над сетами, находки и город, маленькая квартира. «Находка недели за €5», «Сет за 30 секунд», «Пленка недели», «Угол до и после».</dd></div>
+          <div><dt>Монетизация</dt><dd>AI-инструменты, интерьер и свет, керамика, фотоаксессуары. Партнерки на предметы интерьера. Витрина для твоих услуг.</dd></div>
+          <div><dt>Производство</dt><dd>Самое реалистичное из трех: спокойные сцены, медленные движения, много кадров без лица.</dd></div>
+          <div><dt>Риски</dt><dd>Ниша уже массовой, все держится на сторителлинге.</dd></div>
+        </dl>
+        <p class="c-note">Город можно заменить на тот, где ты сам снимешь B-roll и референсы движений, например Ригу.</p>
+        <div class="c-pick"><button class="btn" type="button" data-concept="A" aria-pressed="false">Выбрать A</button></div>
+      </article>
+
+      <article class="concept" data-concept-card="B">
+        <div class="c-top">
+          <span class="c-letter">B</span>
+          <div class="c-tags"><span class="chip picked" data-picked hidden>Выбрано</span></div>
+        </div>
+        <div class="c-name">
+          <h3>Mara Costa, 24</h3>
+          <p>Лиссабон · активный город, athleisure</p>
+        </div>
+        <p class="c-log">Спорт как ритм города: утренний ран-клуб у реки, пилатес, океан по воскресеньям. Без марафонов, диет и «трансформаций».</p>
+        <div class="c-bio"><span class="lbl">Био в профиле</span><b>Mara Costa</b>run club at 7 · pilates at 6 · ocean on sundays<br>Lisbon<br>AI-generated character</div>
+        <dl class="c-facts">
+          <div><dt>Характер</dt><dd>Теплая и энергичная, «старшая сестра» для аудитории. Смеется над своими провалами. Принцип: дисциплина без насилия над собой.</dd></div>
+          <div><dt>Визуальный код</dt><dd>Темные кудри в низком пучке, загар, старая оранжевая ветровка. Палитра: песок, оранжевый, белый, темно-синий.</dd></div>
+          <div><dt>Столпы и рубрики</dt><dd>Образы athleisure, утренние ритуалы, город и океан. «Что надеть на ран-клуб при +14», «Мои 7 утра», «Воскресенье у океана».</dd></div>
+          <div><dt>Монетизация</dt><dd>Athleisure и аксессуары: бутылки, сумки, наушники. Партнерки. Без обещаний результата и отзывов «я пользуюсь».</dd></div>
+          <div><dt>Производство</dt><dd>Среднее: бег и быстрые движения дают артефакты, упор на статичные и медленные кадры.</dd></div>
+          <div><dt>Риски</dt><dd>Самая переполненная ниша AI-моделей. Риск мужской аудитории вместо целевой. Фитнес-бренды осторожнее всех с AI.</dd></div>
+        </dl>
+        <div class="c-pick"><button class="btn" type="button" data-concept="B" aria-pressed="false">Выбрать B</button></div>
+      </article>
+
+      <article class="concept" data-concept-card="C">
+        <div class="c-top">
+          <span class="c-letter">C</span>
+          <div class="c-tags"><span class="chip picked" data-picked hidden>Выбрано</span></div>
+        </div>
+        <div class="c-name">
+          <h3>Lea Novak, 27</h3>
+          <p>12 городов за 12 месяцев · сериал</p>
+        </div>
+        <p class="c-log">Бывшая студентка-архитектор из Любляны год живет по месяцу в разных городах Европы и перемещается только на поездах.</p>
+        <div class="c-bio"><span class="lbl">Био в профиле</span><b>Lea Novak</b>12 cities · 12 months · trains only<br>now: Vienna (4/12)<br>AI-generated character</div>
+        <dl class="c-facts">
+          <div><dt>Характер</dt><dd>Спокойная, любопытная, педантично все планирует. Постоянно теряет зарядки. Уверена, что медленная дорога показывает больше.</dd></div>
+          <div><dt>Визуальный код</dt><dd>Длинные светлые волосы, коричневое пальто, потертый рюкзак, блокнот с билетами. Палитра меняется вместе с городом.</dd></div>
+          <div><dt>Столпы и рубрики</dt><dd>Дорога, город месяца, быт в пути. «Первые 24 часа в…», «Квартира месяца», «Окно поезда: Вена → Будапешт», «День на €50».</dd></div>
+          <div><dt>Монетизация</dt><dd>Travel-аксессуары, eSIM, бронирование и проездные через партнерки, языковые приложения, AI-инструменты.</dd></div>
+          <div><dt>Производство</dt><dd>Выше среднего: много пейзажей и B-roll, статичные сцены в поезде. Но каждый месяц новые локации.</dd></div>
+          <div><dt>Риски</dt><dd>Самая трудоемкая. Travel-бренды ценят подлинность, вымысел нужно подавать открыто.</dd></div>
+        </dl>
+        <div class="c-pick"><button class="btn" type="button" data-concept="C" aria-pressed="false">Выбрать C</button></div>
+      </article>
+    </div>
+
+    <div class="verdict">
+      <div class="table-wrap">
+        <table class="score">
+          <caption class="sr">Сравнение концепций по шести критериям, от 1 до 5</caption>
+          <thead><tr><th>Критерий, 1–5</th><th>A · Creative</th><th>B · Active</th><th>C · Trains</th></tr></thead>
+          <tbody>
+            <tr><th>Размер аудитории ниши</th><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>3</td><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>5</td><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>4</td></tr>
+            <tr><th>Реализм в производстве</th><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>5</td><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>3</td><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>4</td></tr>
+            <tr><th>Готовность брендов к AI</th><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>4</td><td><span class="dots"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>2</td><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>3</td></tr>
+            <tr><th>Мало конкурентов среди AI</th><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>4</td><td><span class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></span>1</td><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>4</td></tr>
+            <tr><th>Сериальность и удержание</th><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>4</td><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>3</td><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>5</td></tr>
+            <tr><th>Легкость производства</th><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>4</td><td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>4</td><td><span class="dots"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>2</td></tr>
+          </tbody>
+          <tfoot><tr><th>Итого из 30</th><td class="best">24</td><td>18</td><td>22</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="verdict-text">
+        <h3>Рекомендую A как основу и сезонные арки из C</h3>
+        <p>Концепцию A проще всего делать реалистично, у нее естественные спонсоры (AI-инструменты, дизайн, интерьер), мало конкурентов среди AI-моделей и прямая связь с твоей работой дизайнера. Арки из C, например «месяц на проекте в Лиссабоне», добавят сериальности.</p>
+        <p class="muted">B даст больше охвата на старте, но это самая переполненная ниша, и фитнес хуже всего подходит для рекомендаций от персонажа без реального опыта. Оценки экспертные, по данным из раздела «Метрики».</p>
+        <p class="muted small">Кнопка «Выбрать» сохраняет решение и отмечает шаг в Ф1.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="phases">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Этапы</p>
+      <h2>Восемь этапов по порядку</h2>
+      <p class="lead">Этапы частично пересекаются: пока обучается лицо, уже пишутся сценарии. У каждого есть цель, результат на выходе и бюджет в кредитах Higgsfield.</p>
+    </div>
+
+    <article class="phase" id="f0" data-phase="f0">
+      <div class="ph-meta">
+        <div class="ph-code"><b>Ф1</b><span>неделя 1</span></div>
+        <h3>Фундамент</h3>
+        <p class="ph-goal">Принять ключевые решения и подготовить инфраструктуру, чтобы дальше только производить.</p>
+        <dl class="ph-dl">
+          <div><dt>На выходе</dt><dd>Выбранная концепция, аккаунты, тариф, рабочее пространство</dd></div>
+          <div><dt>Бюджет</dt><dd>$49 за Higgsfield Plus</dd></div>
+          <div><dt>Инструменты</dt><dd class="tools"><span>Higgsfield</span><span>Notion</span><span>Figma</span><span>Менеджер паролей</span></dd></div>
+        </dl>
+        <div class="ph-prog"><div class="meter"><i></i></div><span data-count>0/0</span></div>
+      </div>
+      <div class="ph-body">
+        <ul class="checklist">
+          <li><label class="check"><input type="checkbox" data-id="f0-audience"><span class="t"><b>Аудитория и язык: международная, английский</b><small>Решено 3 октября.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f0-budget"><span class="t"><b>Бюджет на инструменты: $50–150 в месяц</b><small>Решено 3 октября. Раскладка в разделе «Стек».</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f0-concept"><span class="t"><b>Выбрать концепцию персонажа</b><small>Кнопка «Выбрать» в разделе «Персона» отметит этот шаг.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f0-access"><span class="t"><b>Проверить доступ к площадкам из России</b><small>Instagram и Threads работают через VPN. TikTok не принимает загрузки из России, подключай его только при легальной возможности публиковать.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f0-accounts"><span class="t"><b>Почта и аккаунты персонажа с 2FA</b><small>Один ник на всех площадках, пароли в менеджере, отдельный профиль браузера.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f0-higgsfield"><span class="t"><b>Оформить Higgsfield Plus</b><small>$49 в месяц или $39 при оплате за год, 1 000 кредитов. Сейчас на аккаунте бесплатный план и 0 кредитов.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f0-workspace"><span class="t"><b>Рабочее пространство в Notion</b><small>Библия персонажа, библиотека промптов, база ассетов, контент-календарь. Папки от 01_identity до 05_published.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f0-log"><span class="t"><b>Журнал генераций</b><small>Промпт, модель, seed, референсы, дата для каждого удачного кадра.</small></span></label></li>
+        </ul>
+        <div class="note"><h4>Совет</h4><p>Веди журнал с первого дня. Через месяц ты не вспомнишь, каким промптом получил лучший кадр. Заодно журнал фиксирует твой авторский вклад: чисто AI-изображения в США не защищены авторским правом, а отбор, монтаж и сюжет защищены.</p></div>
+      </div>
+    </article>
+
+    <article class="phase" id="f1" data-phase="f1">
+      <div class="ph-meta">
+        <div class="ph-code"><b>Ф2</b><span>недели 1–2</span></div>
+        <h3>Персона и библия</h3>
+        <p class="ph-goal">Персонаж, за жизнью которого хочется следить: характер, мир, голос и правила.</p>
+        <dl class="ph-dl">
+          <div><dt>На выходе</dt><dd>Библия персонажа на 2–4 страницы</dd></div>
+          <div><dt>Бюджет</dt><dd>0 кредитов</dd></div>
+          <div><dt>Инструменты</dt><dd class="tools"><span>Notion</span><span>FigJam</span><span>Claude</span></dd></div>
+        </dl>
+        <div class="ph-prog"><div class="meter"><i></i></div><span data-count>0/0</span></div>
+      </div>
+      <div class="ph-body">
+        <ul class="checklist">
+          <li><label class="check"><input type="checkbox" data-id="f1-passport"><span class="t"><b>Паспорт: имя, возраст 22+, город, занятие, близкие, питомец</b><small>Занятие вымышленное: без реальных работодателей и регулируемых профессий вроде врача или военного.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f1-name"><span class="t"><b>Проверить имя и ник</b><small>Ник свободен на всех площадках, нет известного человека или бренда с таким именем.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f1-character"><span class="t"><b>Характер: три черты, одна слабость, два-три твердых мнения</b><small>Мнения делают голос узнаваемым, слабость делает персонажа живым.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f1-voice"><span class="t"><b>Тон голоса: 10 примеров подписей и ответов</b><small>Длина подписей, юмор, темы-табу. Готовый ответ на вопрос «ты настоящая?» в голосе персонажа.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f1-world"><span class="t"><b>Мир: 3–4 угла квартиры, 5–7 мест в городе, 3 предмета-якоря</b><small>Повторяющиеся места и вещи создают ощущение реальной жизни и держат консистентность.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f1-visual"><span class="t"><b>Визуальный код: 5 цветов, капсула из 15–20 вещей, фирменная деталь</b><small>Одежда повторяется, как у живого человека. Фирменная деталь работает как розовые волосы у Aitana López.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f1-pillars"><span class="t"><b>Три контент-столпа и 5–6 рубрик</b><small>Рубрики с постоянными названиями приучают ждать продолжения.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f1-arcs"><span class="t"><b>Календарь событий на 8 недель</b><small>Будни, одна-две арки (проект, поездка, переезд) и сезонные поводы.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f1-lines"><span class="t"><b>Красные линии персонажа</b><small>Без романтики с подписчиками, сбора денег, реальных болезней и трагедий в сюжете, отзывов «как будто пробовала».</small></span></label></li>
+        </ul>
+        <div class="note"><h4>Пример ответа «ты настоящая?»</h4><p>«Nope, I'm an AI character made by a designer. The coffee obsession is canon though.» Честно, коротко и в характере.</p></div>
+      </div>
+    </article>
+
+    <article class="phase" id="f2" data-phase="f2">
+      <div class="ph-meta">
+        <div class="ph-code"><b>Ф3</b><span>недели 2–3</span></div>
+        <h3>Лицо и Soul ID</h3>
+        <p class="ph-goal">Одно узнаваемое и неидеальное лицо, которое держится на сотнях кадров.</p>
+        <dl class="ph-dl">
+          <div><dt>На выходе</dt><dd>Soul ID, Element, опорные кадры, паспорт лица</dd></div>
+          <div><dt>Бюджет</dt><dd>≈ 100–200 кредитов</dd></div>
+          <div><dt>Инструменты</dt><dd class="tools"><span>AI Influencer Builder</span><span>Soul 2.0</span><span>Nano Banana Pro</span><span>Soul ID</span><span>Elements</span><span>Google Lens</span></dd></div>
+        </dl>
+        <div class="ph-prog"><div class="meter"><i></i></div><span data-count>0/0</span></div>
+      </div>
+      <div class="ph-body">
+        <ul class="checklist">
+          <li><label class="check"><input type="checkbox" data-id="f2-spec"><span class="t"><b>Описать лицо текстом</b><small>Форма лица, глаза, брови, нос, губы, волосы, кожа. Обязательно асимметрия: веснушки, родинка, неровная бровь.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f2-explore"><span class="t"><b>Сгенерировать 40–80 вариантов</b><small>AI Influencer Builder, Soul 2.0 и Nano Banana Pro. Сравнивать на одной сетке в Figma при одинаковом свете.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f2-hero"><span class="t"><b>Выбрать одно главное лицо</b><small>Лучше то, которое запоминается деталью, а не красотой.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f2-lookalike"><span class="t"><b>Проверить сходство с реальными людьми</b><small>Обратный поиск по фото в Google Lens и Яндексе. Лицо не должно напоминать знаменитость или конкретного человека.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f2-anchors"><span class="t"><b>Сделать 8–10 опорных кадров</b><small>Анфас, три четверти влево и вправо, профиль, улыбка, смех, серьезное лицо, кожа крупно, полный рост. Нейтральный фон, мягкий ровный свет.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f2-dataset"><span class="t"><b>Собрать датасет из 20–30 кадров</b><small>Nano Banana Pro с референсами, до 14 штук. Разные ракурсы, одежда, фоны. Без очков, шляп, рук у лица и фильтров. От 1024 px.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f2-cull"><span class="t"><b>Отбраковать дрейф</b><small>Длина волос, рисунок веснушек, форма бровей, родинка на своем месте.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f2-train"><span class="t"><b>Обучить Soul ID</b><small>Около 25 кредитов и 3–5 минут. Работает в Soul 2.0 и Soul Cinema.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f2-test"><span class="t"><b>Проверить на 20 новых сценах</b><small>Если лицо плывет, замени слабые кадры датасета и переобучи.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f2-element"><span class="t"><b>Сохранить лицо как Element</b><small>Для Nano Banana Pro, Seedream, Kling 3.0, Seedance 2.0 и Cinema Studio: в них Soul ID не работает.</small></span></label></li>
+        </ul>
+        <div class="note"><h4>Почему лицу нужны изъяны</h4><p>В гайде Higgsfield сказано прямо: слишком идеальное лицо мгновенно считывается как AI. Асимметрия и детали кожи делают лицо живым и одновременно узнаваемым. Черты только взрослые: TikTok удаляет синтетический контент, похожий на несовершеннолетних.</p></div>
+      </div>
+    </article>
+
+    <article class="phase" id="f3" data-phase="f3">
+      <div class="ph-meta">
+        <div class="ph-code"><b>Ф4</b><span>недели 3–5</span></div>
+        <h3>Фото-конвейер</h3>
+        <p class="ph-goal">Банк из 40–60 готовых фото на первый месяц и рецепт, который повторяется.</p>
+        <dl class="ph-dl">
+          <div><dt>На выходе</dt><dd>3–4 фотосессии, 40–60 фото, библиотека промптов</dd></div>
+          <div><dt>Бюджет</dt><dd>≈ 200–300 кредитов</dd></div>
+          <div><dt>Инструменты</dt><dd class="tools"><span>Soul 2.0 + Soul ID</span><span>Nano Banana Pro</span><span>Seedream 5.0</span><span>Soul Location</span><span>Topaz</span></dd></div>
+        </dl>
+        <div class="ph-prog"><div class="meter"><i></i></div><span data-count>0/0</span></div>
+      </div>
+      <div class="ph-body">
+        <ul class="checklist">
+          <li><label class="check"><input type="checkbox" data-id="f3-template"><span class="t"><b>Шаблон промпта</b><small>Сцена, действие, вещь из капсулы, один источник света, камера телефона, несовершенства, кадрирование. Готовые шаблоны в разделе «Промпты».</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f3-locations"><span class="t"><b>Постоянные локации</b><small>Soul Location для квартиры и кафе, реальные фото города как референсы.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f3-shoot1"><span class="t"><b>Фотосессия 1: дом</b><small>Одна локация, один образ, 8–12 кадров с разных ракурсов, как серия живого человека.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f3-shoot2"><span class="t"><b>Фотосессия 2: город</b><small>Улица, кафе, транспорт. Случайные предметы и прохожие не в фокусе.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f3-shoot3"><span class="t"><b>Фотосессия 3: работа или хобби</b><small>То, чем персонаж занят по сюжету. Много деталей без лица.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f3-types"><span class="t"><b>Закрыть все типы кадров</b><small>Селфи с фронталки, зеркало, «сняла подруга», детали без лица, интерьер или пейзаж.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f3-post"><span class="t"><b>Постобработка</b><small>Правка артефактов, легкая текстура кожи, апскейл, цвет и легкое зерно, экспорт 1080×1350 или 1080×1920.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f3-qa"><span class="t"><b>Прогнать кадры через QA-чек-лист</b><small>Чек-лист в разделе «Реализм».</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f3-prompts"><span class="t"><b>Сохранить 10+ рабочих промптов</b><small>С пометками: модель, seed, что получилось и что нет.</small></span></label></li>
+        </ul>
+        <div class="note"><h4>Сохраняй метаданные</h4><p>Не вычищай C2PA и водяные знаки при экспорте. Условия Higgsfield это запрещают, а Instagram и TikTok по этим данным сами ставят метку AI.</p></div>
+      </div>
+    </article>
+    <article class="phase" id="f4" data-phase="f4">
+      <div class="ph-meta">
+        <div class="ph-code"><b>Ф5</b><span>недели 4–7</span></div>
+        <h3>Видео и голос</h3>
+        <p class="ph-goal">8–10 тестовых роликов, которые проходят тест ленты: при беглом просмотре глаз не цепляется за артефакты.</p>
+        <dl class="ph-dl">
+          <div><dt>На выходе</dt><dd>Голос персонажа, 8–10 роликов, книга видеорецептов</dd></div>
+          <div><dt>Бюджет</dt><dd>≈ 300–500 кредитов</dd></div>
+          <div><dt>Инструменты</dt><dd class="tools"><span>Kling 3.0</span><span>Motion Control</span><span>Genjutsu</span><span>Seedance 2.0</span><span>Sync Lipsync 3</span><span>Eleven v4</span><span>CapCut</span></dd></div>
+        </dl>
+        <div class="ph-prog"><div class="meter"><i></i></div><span data-count>0/0</span></div>
+      </div>
+      <div class="ph-body">
+        <ul class="checklist">
+          <li><label class="check"><input type="checkbox" data-id="f4-voice"><span class="t"><b>Создать голос персонажа</b><small>Voice Design в ElevenLabs или голос в Higgsfield на Eleven v4. Один голос на весь проект.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f4-perform"><span class="t"><b>Записать реплики живым голосом</b><small>Свой голос или голос знакомой с ее согласия, затем voice changer. Так появляются естественные паузы и дыхание.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f4-shotlist"><span class="t"><b>Матрица кадров</b><small>Селфи-разговор, проходка, B-roll без лица, POV, смена образов. Для каждого типа своя модель, см. раздел «Стек».</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f4-i2v"><span class="t"><b>Освоить image-to-video</b><small>Kling 3.0 и Seedance 2.0 из сильного стоп-кадра. Клипы по 5–8 секунд, черновик в 720p, финал в 1080p.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f4-motion"><span class="t"><b>Снять референсы движений и перенести на персонажа</b><small>Kling 3.0 Motion Control или Genjutsu. Одна непрерывная сцена 3–30 секунд, без резких движений.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f4-lipsync"><span class="t"><b>Сравнить липсинк</b><small>Нативный звук Kling и Seedance против Sync Lipsync 3 и Kling Avatars 2.0. Смотри на губы на «п», «б», «м».</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f4-edit"><span class="t"><b>Шаблон монтажа</b><small>CapCut или DaVinci Resolve: склейка коротких клипов, субтитры, фоновый звук, легкое зерно, 30 кадров в секунду.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f4-tests"><span class="t"><b>Собрать 8–10 тестовых роликов</b><small>Покажи 3–5 людям без контекста и спроси, что они заметили первым.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f4-recipes"><span class="t"><b>Записать книгу рецептов</b><small>Тип кадра, модель, настройки, стоимость в кредитах, процент брака.</small></span></label></li>
+        </ul>
+        <div class="note"><h4>Как снимать референс движения</h4><p>Телефон на штативе или в ровной руке, одна сцена без склеек, кадрирование как у стоп-кадра, ровный свет, лицо видно в первом кадре. Для походки и жестов лучше исполнительница: пластика переносится вместе с движением. Чужие ролики из TikTok не бери, это чужие права и чужая внешность.</p></div>
+      </div>
+    </article>
+
+    <article class="phase" id="f5" data-phase="f5">
+      <div class="ph-meta">
+        <div class="ph-code"><b>Ф6</b><span>недели 6–7</span></div>
+        <h3>Упаковка и запуск</h3>
+        <p class="ph-goal">Профиль, который с первого дня выглядит живым и честным.</p>
+        <dl class="ph-dl">
+          <div><dt>На выходе</dt><dd>Упакованные профили, календарь на 4 недели, первые публикации</dd></div>
+          <div><dt>Бюджет</dt><dd>0 кредитов сверх плана</dd></div>
+          <div><dt>Инструменты</dt><dd class="tools"><span>Instagram</span><span>Threads</span><span>YouTube</span><span>Meta Business Suite</span><span>Notion</span></dd></div>
+        </dl>
+        <div class="ph-prog"><div class="meter"><i></i></div><span data-count>0/0</span></div>
+      </div>
+      <div class="ph-body">
+        <ul class="checklist">
+          <li><label class="check"><input type="checkbox" data-id="f5-handle"><span class="t"><b>Ник, аватар и био</b><small>Первая строка био: «AI-generated character». Можно подписать создателя, это заодно витрина твоих услуг.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f5-label"><span class="t"><b>Instagram: аккаунт автора и метка «AI-generated profile»</b><small>Включается в Edit profile. С меткой охваты не режутся.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f5-grid"><span class="t"><b>Заранее выложить 9–12 постов и 3–5 Highlights</b><small>Первый посетитель должен увидеть сложившуюся жизнь, а не пустой профиль.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f5-platforms"><span class="t"><b>Подключить Threads и YouTube Shorts</b><small>TikTok только при легальной возможности публиковать. Pinterest по желанию.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f5-calendar"><span class="t"><b>Контент-календарь на 4 недели</b><small>Instagram: 3 Reels и 1–2 карусели в неделю, Stories каждый день. Shorts: 3–5 в неделю.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f5-ailabels"><span class="t"><b>Метки AI на каждом реалистичном посте</b><small>Meta: «AI info». YouTube: «altered or synthetic». TikTok: метка AIGC.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f5-community"><span class="t"><b>Правила общения в комментариях и директе</b><small>Отвечает человек в голосе персонажа. Заготовки на частые вопросы.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f5-launch"><span class="t"><b>Запуск</b><small>Первые две недели без рекламы и коллабораций, только регулярность.</small></span></label></li>
+        </ul>
+        <div class="note"><h4>Почему метка не вредит</h4><p>Instagram прямо пишет: профили с меткой «AI-generated profile» не теряют охваты из-за AI-персонажа, теряют те, кого система находит без метки. История Mia Zelu показывает вторую сторону: раскрытие, спрятанное под «ещё», превратило вирусный рост в волну негатива.</p></div>
+      </div>
+    </article>
+
+    <article class="phase" id="f6" data-phase="f6">
+      <div class="ph-meta">
+        <div class="ph-code"><b>Ф7</b><span>недели 8–24</span></div>
+        <h3>Рост</h3>
+        <p class="ph-goal">Найти 1–2 формата, которые растут сами, и масштабировать их.</p>
+        <dl class="ph-dl">
+          <div><dt>На выходе</dt><dd>Стабильный ритм, сильные форматы, растущая база</dd></div>
+          <div><dt>Бюджет</dt><dd>≈ 600–900 кредитов в месяц</dd></div>
+          <div><dt>Инструменты</dt><dd class="tools"><span>Instagram Insights</span><span>Trial Reels</span><span>Metricool</span><span>Notion</span></dd></div>
+        </dl>
+        <div class="ph-prog"><div class="meter"><i></i></div><span data-count>0/0</span></div>
+      </div>
+      <div class="ph-body">
+        <ul class="checklist">
+          <li><label class="check"><input type="checkbox" data-id="f6-cadence"><span class="t"><b>Держать ритм 4–5 постов в неделю</b><small>По данным Buffer, 3–5 постов в неделю больше чем вдвое ускоряют рост подписчиков по сравнению с 1–2.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f6-hooks"><span class="t"><b>Хук в первые 1–3 секунды каждого ролика</b><small>Действие или вопрос сразу, без заставок и логотипов.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f6-review"><span class="t"><b>Разбирать метрики раз в две недели</b><small>Досмотры, отправки, сохранения. Форматы выше медианы аккаунта оставлять, остальные менять.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f6-series"><span class="t"><b>Запустить сериальную рубрику</b><small>Чтобы подписывались ради продолжения.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f6-trial"><span class="t"><b>Trial Reels после 1 000 подписчиков</b><small>Instagram сначала показывает ролик не-подписчикам, потом своим.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f6-collabs"><span class="t"><b>Коллаборации</b><small>Collab-посты с AI-креаторами и креаторами-людьми из соседних ниш.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f6-crosspost"><span class="t"><b>Кросспостинг без чужих водяных знаков</b><small>Instagram понижает ролики с логотипами других площадок.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f6-clean"><span class="t"><b>Никаких накруток и ботов</b><small>Ни покупных подписчиков, ни массфоловинга. Шаблонный конвейер режут YouTube и TikTok.</small></span></label></li>
+        </ul>
+        <div class="note"><h4>Реальность роста</h4><p>Большинство AI-аккаунтов выходят на плато: у Aitana López +0,1% подписчиков за 30 дней, у Imma −0,3%. Расти продолжают те, у кого есть сюжет и новые форматы. Аудиторию настораживают и «роботные» привычки: посты строго по таймеру и одинаковое число ответов под каждым постом.</p></div>
+      </div>
+    </article>
+
+    <article class="phase" id="f7" data-phase="f7">
+      <div class="ph-meta">
+        <div class="ph-code"><b>Ф8</b><span>с 10-й недели</span></div>
+        <h3>Монетизация</h3>
+        <p class="ph-goal">Первые деньги без потери доверия аудитории.</p>
+        <dl class="ph-dl">
+          <div><dt>На выходе</dt><dd>Медиакит, 1–2 источника дохода, юридически чистая схема</dd></div>
+          <div><dt>Бюджет</dt><dd>Время, не кредиты</dd></div>
+          <div><dt>Инструменты</dt><dd class="tools"><span>Figma</span><span>Notion</span><span>Юрист</span><span>Бухгалтер</span></dd></div>
+        </dl>
+        <div class="ph-prog"><div class="meter"><i></i></div><span data-count>0/0</span></div>
+      </div>
+      <div class="ph-body">
+        <ul class="checklist">
+          <li><label class="check"><input type="checkbox" data-id="f7-case"><span class="t"><b>Упаковать проект как кейс для услуг</b><small>Производство AI-контента и AI-амбассадоров для брендов. Самый быстрый путь к деньгам: большая аудитория не нужна.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f7-kit"><span class="t"><b>Медиакит</b><small>Аудитория, охваты, ER, лучшие форматы, ставки, примеры.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f7-aitools"><span class="t"><b>Питч AI-инструментам</b><small>Первыми партнерами Aitana López стали Freepik и AI-апскейлер. Им важна демонстрация возможностей, а не только охват.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f7-affiliate"><span class="t"><b>Партнерские ссылки в нише</b><small>Формулировки без личного опыта: персонаж не может «пользоваться месяц».</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f7-brands"><span class="t"><b>Интеграции с брендами от 10 000 подписчиков</b><small>Метки «Paid partnership» и «Ad». Для рекламы на аудиторию США заметное раскрытие AI по закону Нью-Йорка с 9 июня 2026.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f7-payments"><span class="t"><b>Решить прием оплат из-за рубежа</b><small>Выплаты Meta, TikTok и YouTube резидентам России недоступны. Схему (юрисдикция, счет, налоги) обсуди с бухгалтером.</small></span></label></li>
+          <li><label class="check"><input type="checkbox" data-id="f7-legal"><span class="t"><b>Консультация юриста по рекламе</b><small>Реклама в Instagram в России запрещена с 1 сентября 2025. Применимость запрета к англоязычным интеграциям для зарубежной аудитории неочевидна.</small></span></label></li>
+        </ul>
+        <div class="note"><h4>Ставки</h4><p>Ориентир по креаторам-людям (Later, июль 2026): аккаунты на 10–100 тыс. подписчиков получают $500–2 500 за пост. AI-персонажам платят меньше: 89% крупных маркетологов избегают виртуальных инфлюенсеров (Linqia). Aitana López, по словам ее агентства, получает около €1 000 за рекламу.</p></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="sec" id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Стек</p>
+      <h2>Инструменты и бюджет</h2>
+      <p class="lead">Почти все делается внутри Higgsfield. Список моделей сверен с каталогом твоего аккаунта, цены тарифов взяты оттуда же 3 октября 2026.</p>
+    </div>
+
+    <div class="sub sub-first">
+      <h3>Какая модель для какой задачи</h3>
+      <div class="table-wrap">
+        <table class="t-wide">
+          <thead><tr><th>Задача</th><th>Основной выбор</th><th>Запасной</th><th>Заметка</th></tr></thead>
+          <tbody>
+            <tr><th>Кастинг лица</th><td>AI Influencer Builder, Soul 2.0</td><td>Nano Banana Pro</td><td>Перебор дешевый: картинка Soul 2.0 стоит доли кредита</td></tr>
+            <tr><th>Фото персонажа</th><td>Soul 2.0 + Soul ID</td><td>Nano Banana Pro + Element</td><td>Soul ID работает только в Soul 2.0 и Soul Cinema</td></tr>
+            <tr><th>Правки кадра: одежда, фон, свет</th><td>Nano Banana Pro</td><td>Seedream 4.5 / 5.0, GPT Image 2</td><td>Один набор референсов на всю серию</td></tr>
+            <tr><th>Постоянные локации</th><td>Soul Location</td><td>Реальные фото как референс</td><td>Квартира и любимое кафе в каждой серии одни и те же</td></tr>
+            <tr><th>Селфи-видео, разговор в камеру</th><td>Kling 3.0</td><td>Seedance 2.0</td><td>Липсинк держится примерно до 8 секунд</td></tr>
+            <tr><th>Самые чистые люди в кадре</th><td>Seedance 2.0 / 2.5</td><td>Veo 3.1</td><td>Заметно дороже Kling, для ключевых роликов</td></tr>
+            <tr><th>Перенос своих движений</th><td>Kling 3.0 Motion Control</td><td>Genjutsu</td><td>3–30 секунд, одна сцена без склеек</td></tr>
+            <tr><th>Липсинк на готовое видео</th><td>Sync Lipsync 3</td><td>Kling Avatars 2.0</td><td>Сначала звук, потом губы</td></tr>
+            <tr><th>Голос</th><td>Eleven v4 в Higgsfield</td><td>ElevenLabs Voice Design</td><td>Один голос на весь проект</td></tr>
+            <tr><th>Апскейл</th><td>Topaz</td><td>Bytedance Upscale</td><td>Только финальные версии: в высоком разрешении изъяны заметнее</td></tr>
+            <tr><th>Правка клипа текстом</th><td>Kling 3.0 Omni Edit</td><td>Gemini Omni Flash 1.1</td><td>Убрать предмет, поменять деталь без перегенерации</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">Sora закрыт в 2026 году: приложение в апреле, API в сентябре. Гайды с Sora 2 устарели.</p>
+    </div>
+
+    <div class="sub">
+      <h3>Бюджет в месяц</h3>
+      <div class="table-wrap">
+        <table class="t-min">
+          <thead><tr><th>Статья</th><th>Инструмент</th><th class="num">В месяц</th><th>Комментарий</th></tr></thead>
+          <tbody>
+            <tr><th>Генерация</th><td>Higgsfield Plus</td><td class="num">$49</td><td>1 000 кредитов. $39 в месяц при оплате за год</td></tr>
+            <tr><th>Голос</th><td>ElevenLabs Starter</td><td class="num">≈ $5</td><td>Voice Design и коммерческая лицензия. Можно обойтись голосами в Higgsfield</td></tr>
+            <tr><th>Монтаж</th><td>CapCut или DaVinci Resolve</td><td class="num">$0</td><td>Бесплатных версий хватает на старте</td></tr>
+            <tr><th>Планирование</th><td>Notion, Figma</td><td class="num">$0</td><td>Библия, промпты, календарь, мудборды</td></tr>
+            <tr><th>Публикации</th><td>Meta Business Suite, Metricool</td><td class="num">$0</td><td>Metricool Free: 1 бренд, 50 постов в месяц</td></tr>
+            <tr><th>Резерв</th><td>Пакеты кредитов</td><td class="num">$10–20</td><td>Докупленные кредиты сгорают через 90 дней</td></tr>
+          </tbody>
+          <tfoot><tr><th>Итого</th><td></td><td class="num">≈ $55–75</td><td>В нижней части твоего бюджета</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="split">
+        <div class="note"><h4>Когда переходить на Ultra</h4><p>Когда видео станет основным форматом, обычно после запуска. Ultra стоит $129 в месяц или $99 при оплате за год, дает 3 000 кредитов и более дешевый кредит. Весь стек тогда около $135–150.</p></div>
+        <div class="note"><h4>Важно про Higgsfield</h4><p>Безлимиты и бесплатные генерации работают только на сайте higgsfield.ai. Генерации через Claude всегда списывают кредиты. Есть пробный Plus через Claude: 3 дня и 100 кредитов, нужна карта, без отмены продлится за $49.</p></div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>Сколько стоит в кредитах</h3>
+      <div class="split credits">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Операция</th><th class="num">≈ Кредитов</th></tr></thead>
+          <tbody>
+            <tr><th>Soul 2.0, изображение 2K</th><td class="num">0,12</td></tr>
+            <tr><th>Nano Banana Pro, изображение до 2K</th><td class="num">2</td></tr>
+            <tr><th>Обучение Soul ID</th><td class="num">25</td></tr>
+            <tr><th>Kling 3.0, клип 5 с, 720p</th><td class="num">5–10</td></tr>
+            <tr><th>Seedance 2.0, клип 5 с, 720p / 1080p</th><td class="num">22 / 45</td></tr>
+            <tr><th>Veo 3.1, клип 8 с</th><td class="num">58–80</td></tr>
+            <tr><th>Genjutsu, 15 с, 720p / 1080p</th><td class="num">104 / 144</td></tr>
+            <tr><th>Липсинк, 10 с, 1080p</th><td class="num">≈ 20</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><h4>Что влезает в Plus</h4><p>16 роликов в месяц по 4 клипа на Kling 3.0 с запасом 35% на брак съедают около 600 кредитов. Еще около 120 уйдут на 60 фото в Nano Banana Pro. Остаток покрывает тесты и липсинк.</p><p>Если основным движком станут Seedance 2.0 или Genjutsu, нужен Ultra.</p><p class="small muted">Цены в кредитах меняются, точная стоимость видна на кнопке генерации.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="realism">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Реализм</p>
+      <h2>Как не выглядеть как AI-слоп</h2>
+      <p class="lead">Реализм дает ремесло: свет, кадр, движение, звук и строгий отбор. Этот же список служит QA-чек-листом перед каждой публикацией.</p>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <h3>Фото <span class="chip">Ф4</span></h3>
+        <div class="dl-list"><h4 class="do">Делать</h4>
+          <ul class="marks plus">
+            <li>Язык камеры вместо прилагательных: «35mm, f/2, свет из окна слева»</li>
+            <li>Один понятный источник света в сцене</li>
+            <li>Поры, мелкие морщинки, выбившиеся волоски, естественный блеск кожи</li>
+            <li>Неидеальный кадр: смещение, срезанная макушка, случайные предметы</li>
+            <li>Реквизит, который правда был бы в такой сцене</li>
+            <li>Серии по 8–12 кадров одной сцены, как у живого человека</li>
+          </ul>
+        </div>
+        <div class="dl-list"><h4 class="dont">Не делать</h4>
+          <ul class="marks minus">
+            <li>«8K, hyperrealistic, masterpiece, flawless skin» в промптах</li>
+            <li>Один и тот же ракурс лица из поста в пост</li>
+            <li>Новую одежду в каждом посте</li>
+            <li>Идеальную симметрию и центр кадра</li>
+          </ul>
+        </div>
+        <div class="dl-list"><h4 class="chk">Проверить перед публикацией</h4>
+          <ul class="marks eye">
+            <li>Восковая кожа, одинаковые блики в обоих глазах, свет без источника</li>
+            <li>Руки и пальцы, особенно рядом с другими людьми</li>
+            <li>Разные серьги, кривые украшения и оправы</li>
+            <li>Текст на вывесках, обложках, этикетках</li>
+            <li>Отражения в зеркалах и окнах</li>
+            <li>Ореол по краю фигуры, будто ее вырезали и вставили</li>
+            <li>Слишком чистый или слишком ровный шум</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Видео <span class="chip">Ф5</span></h3>
+        <div class="dl-list"><h4 class="do">Делать</h4>
+          <ul class="marks plus">
+            <li>Старт из выверенного стоп-кадра, а не из текста</li>
+            <li>Клипы по 5–8 секунд, ролик собирается из нескольких</li>
+            <li>«Телефонные» слова в промпте: handheld, natural light, single take, room tone</li>
+            <li>Движения со своих референсов через Motion Control или Genjutsu</li>
+            <li>B-roll без лица: руки, предметы, город, вид из окна</li>
+            <li>Фоновый звук улицы или комнаты, шаги, субтитры</li>
+            <li>Нейтральный цвет, легкое зерно, 30 кадров в секунду, обычный битрейт</li>
+          </ul>
+        </div>
+        <div class="dl-list"><h4 class="dont">Не делать</h4>
+          <ul class="marks minus">
+            <li>«cinematic, gimbal, stabilized, studio» в промптах</li>
+            <li>Длинные непрерывные дубли</li>
+            <li>Быстрые движения рук и повороты головы больше чем на 60°</li>
+            <li>Клетку и мелкий узор на одежде: они мерцают</li>
+            <li>Цветокор teal &amp; orange и пересвеченные цвета</li>
+          </ul>
+        </div>
+        <div class="dl-list"><h4 class="chk">Проверить перед публикацией</h4>
+          <ul class="marks eye">
+            <li>Губы на «п», «б», «м» и «резиновый» рот</li>
+            <li>Фон меняется между склейками</li>
+            <li>Пальцы морфятся</li>
+            <li>Странная походка людей на заднем плане</li>
+            <li>Слишком плавная камера</li>
+            <li>Голос без дыхания и с ровной интонацией</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="wide-note">
+      <h4>Тест ленты</h4>
+      <p>Перед публикацией посмотри ролик на телефоне на обычной скорости, один раз, без звука и со звуком. Если взгляд за что-то зацепился, это увидят и подписчики. Перегенерация стоит дешевле, чем комментарии про шесть пальцев.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="prompts">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Промпты</p>
+      <h2>Шаблоны промптов</h2>
+      <p class="lead">Промпты пишутся на английском. [character] замени тегом своего Soul ID или Element, остальное в квадратных скобках подставь под сцену. Детали лица в примерах условные.</p>
+    </div>
+    <div class="prompts">
+      <article class="prompt">
+        <div class="p-head"><div><span class="chip">Soul 2.0 · Nano Banana Pro</span><h3>Кастинг лица</h3></div><button class="btn btn-s copy" type="button" data-copy="pr1">Копировать</button></div>
+        <pre id="pr1">Unretouched smartphone portrait of a 26-year-old woman. Oval face, light olive skin with faint freckles across the nose, a small mole above the left corner of the lip, slightly uneven eyebrows, hazel eyes, shoulder-length copper bob with natural flyaways. Neutral relaxed expression, looking into the lens. Plain light grey wall, soft overcast window light from camera left, eye level, 50mm. Visible pores, natural skin texture, minimal makeup, no retouching, no filter.</pre>
+        <p class="p-foot">Генерируй пачками и меняй по одной черте за раз. Так проще понять, что делает лицо узнаваемым.</p>
+      </article>
+      <article class="prompt">
+        <div class="p-head"><div><span class="chip">Nano Banana Pro + референс</span><h3>Опорный ракурс</h3></div><button class="btn btn-s copy" type="button" data-copy="pr2">Копировать</button></div>
+        <pre id="pr2">Same woman as in the reference image: identical face, freckles, mole and hair. Three-quarter view facing left, neutral expression. Same plain light grey wall and soft window light from camera left. Head and shoulders, 50mm, eye level. Unretouched, natural skin texture, no makeup change, no accessories.</pre>
+        <p class="p-foot">Меняй только ракурс и выражение: анфас, 3/4 вправо, профиль, улыбка, смех. Свет и фон те же.</p>
+      </article>
+      <article class="prompt">
+        <div class="p-head"><div><span class="chip">Soul 2.0 + Soul ID</span><h3>Селфи с фронталки</h3></div><button class="btn btn-s copy" type="button" data-copy="pr3">Копировать</button></div>
+        <pre id="pr3">Front-camera selfie of [character] at arm's length, slightly above eye level, sitting by the window of a small cafe. Late-afternoon sun through the glass, steam rising from a cup in the foreground. Slight smile, a few flyaway hairs, natural shine on the nose. Casual framing with the top of the head slightly cut off. iPhone front camera look, mild noise, unedited.</pre>
+        <p class="p-foot">Делай 8–12 кадров одной сцены с небольшими сменами позы, чтобы собрать карусель.</p>
+      </article>
+      <article class="prompt">
+        <div class="p-head"><div><span class="chip">Soul 2.0 + Soul ID</span><h3>«Сняла подруга»</h3></div><button class="btn btn-s copy" type="button" data-copy="pr4">Копировать</button></div>
+        <pre id="pr4">Candid photo of [character] taken by a friend on a phone from across a quiet street. She is unlocking an old green bicycle and not looking at the camera. Overcast daylight, wet pavement, parked bikes and shop windows out of focus. Slight underexposure, imperfect framing, natural grain, no retouching.</pre>
+        <p class="p-foot">Без взгляда в камеру и с легкой недодержкой кадр читается как настоящий снимок, а не как постановка.</p>
+      </article>
+      <article class="prompt">
+        <div class="p-head"><div><span class="chip">Nano Banana Pro + Element</span><h3>Зеркало, образ дня</h3></div><button class="btn btn-s copy" type="button" data-copy="pr5">Копировать</button></div>
+        <pre id="pr5">Mirror selfie of [character] in a narrow hallway, the phone covering part of her face, full-length view. Wearing [outfit from the capsule]. Warm ceiling light mixed with cool daylight from a side door, slightly tilted framing, a few smudges on the mirror, shoes and a tote bag on the floor. Realistic phone photo, no beauty filter.</pre>
+        <p class="p-foot">Вещи берутся только из капсулы гардероба, иначе персонаж каждый раз «покупает» новую одежду.</p>
+      </article>
+      <article class="prompt">
+        <div class="p-head"><div><span class="chip">Kling 3.0 · Seedance 2.0</span><h3>Разговор в камеру на ходу</h3></div><button class="btn btn-s copy" type="button" data-copy="pr6">Копировать</button></div>
+        <pre id="pr6">Filmed on an iPhone front camera. She holds the phone at arm's length and talks to the camera while walking slowly along the street, small natural head movements and blinks, slight handheld micro-shake. Natural daylight, casual framing, one continuous take, ambient street sound, no music, no on-screen text.
+Avoid: cinematic look, gimbal, slow motion, dramatic lighting.</pre>
+        <p class="p-foot">Стартовый кадр бери из селфи-серии. Длина клипа 5–8 секунд, реплика укладывается в одну фразу.</p>
+      </article>
+      <article class="prompt">
+        <div class="p-head"><div><span class="chip">Kling 3.0 · Seedance 2.0</span><h3>B-roll от первого лица</h3></div><button class="btn btn-s copy" type="button" data-copy="pr7">Копировать</button></div>
+        <pre id="pr7">POV shot: her hands wrap around a ceramic cup by a rainy window, one finger taps the rim, rain streaks on the glass, soft grey daylight. Static phone camera resting on the table, shallow depth of field, natural color, quiet room tone. 5 seconds.</pre>
+        <p class="p-foot">Такие кадры без лица связывают ролик и прячут слабые места соседних клипов.</p>
+      </article>
+      <article class="prompt">
+        <div class="p-head"><div><span class="chip">Motion Control · Genjutsu</span><h3>Референс для переноса движения</h3></div></div>
+        <div class="p-body">
+          <p class="small muted">Это не промпт, а требования к видео, которое ты снимаешь сам.</p>
+          <ol class="ref-list">
+            <li>3–30 секунд, один человек, одна сцена без склеек и без движения камеры.</li>
+            <li>Кадрирование как у стоп-кадра персонажа: по пояс к поясу, в полный рост к полному росту.</li>
+            <li>Ровный свет, лицо видно в первом кадре.</li>
+            <li>Без быстрых движений пальцев, рук у лица, клетки и логотипов на одежде.</li>
+            <li>В промпте опиши сцену, а не движение: движение возьмется из видео.</li>
+            <li>Только своя съемка или съемка с согласия исполнителя.</li>
+          </ol>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="rules">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Правила</p>
+      <h2>Правила площадок и закона</h2>
+      <p class="thesis">Реалистичный AI-персонаж разрешен везде. Запрещено <span>выдавать его за человека</span>.</p>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <div class="rule-head"><h3>Instagram и Threads</h3><span class="chip">с 31.08.2026</span></div>
+        <ul>
+          <li class="hot">Профиль, где главный герой AI-человек, отмечается меткой «AI-generated profile» в Edit profile.</li>
+          <li>Фотореалистичное видео и реалистичный звук требуют метки «AI info» при публикации.</li>
+          <li>Без метки профиль перестает рекомендоваться в Reels и Explore. Это видно в Account Status.</li>
+          <li>Сеть фейковых аккаунтов и выдача себя за человека нарушают правила о подлинности.</li>
+        </ul>
+      </div>
+      <div class="rule">
+        <div class="rule-head"><h3>TikTok</h3><span class="chip">правила с 13.09.2025</span></div>
+        <ul>
+          <li class="hot">Реалистичные AI-люди и сцены только с меткой AIGC. Файлы с C2PA маркируются автоматически.</li>
+          <li>Запрещены фейковые персоны с целью ввести в заблуждение, AI-образы несовершеннолетних, чужое лицо без согласия.</li>
+          <li>Зрители могут сократить AI-контент в ленте, функция в тестировании.</li>
+          <li>Из России загрузка видео недоступна с 2022 года, монетизация отключена.</li>
+        </ul>
+      </div>
+      <div class="rule">
+        <div class="rule-head"><h3>YouTube Shorts</h3><span class="chip">с 27.05.2026</span></div>
+        <ul>
+          <li class="hot">Реалистичные сцены, которых не было, отмечаются как «altered or synthetic». YouTube ставит метки и сам.</li>
+          <li>Метка не влияет на рекомендации и монетизацию.</li>
+          <li>Шаблонный AI-конвейер не монетизируется по политике о неоригинальном контенте.</li>
+          <li>Партнерская программа доступна только жителям стран, где она работает.</li>
+        </ul>
+      </div>
+      <div class="rule">
+        <div class="rule-head"><h3>ЕС: AI Act, статья 50</h3><span class="chip">с 02.08.2026</span></div>
+        <ul>
+          <li class="hot">Дипфейки нужно раскрывать при первом показе, ясно и заметно.</li>
+          <li>По разъяснениям Еврокомиссии и юристов, реалистичный вымышленный человек, скорее всего, подпадает под правило. Пример с AI-инфлюенсером в рекламе приводится прямо.</li>
+          <li>Действует и для авторов вне ЕС, если контент видят в ЕС. Штраф до €15 млн или 3% оборота.</li>
+        </ul>
+      </div>
+      <div class="rule">
+        <div class="rule-head"><h3>США</h3><span class="chip">NY с 09.06.2026</span></div>
+        <ul>
+          <li>FTC считает виртуального инфлюенсера эндорсером: платное партнерство раскрывается.</li>
+          <li class="hot">Запрещены отзывы от несуществующих людей и без реального опыта. Персонаж не может «пользоваться месяц».</li>
+          <li>Нью-Йорк: реклама с синтетическим исполнителем требует заметного раскрытия. Штраф $1 000, за повтор $5 000.</li>
+        </ul>
+      </div>
+      <div class="rule">
+        <div class="rule-head"><h3>Условия Higgsfield</h3><span class="chip">ред. 26.07.2026</span></div>
+        <ul>
+          <li>Права на результаты твои, коммерческое использование разрешено.</li>
+          <li class="hot">Запрещено выдавать генерации за созданные человеком и удалять маркеры происхождения.</li>
+          <li>Higgsfield может обучать модели на твоем контенте и показывать публичные посты в своем маркетинге.</li>
+          <li>Для рекламы музыку бери из коммерческих библиотек: TikTok Commercial Music Library, Meta Sound Collection.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ru">
+      <div class="side-head"><p class="eyebrow">Россия</p><h3>Если ведешь проект из России</h3></div>
+      <ul>
+        <li>Instagram заблокирован, Meta признана экстремистской. Пользоваться аккаунтом физлицу не запрещено.</li>
+        <li>С 1 сентября 2025 запрещена реклама в Instagram, Facebook и на других заблокированных ресурсах (72-ФЗ). Штраф для физлица 2 000–2 500 ₽, для компании до 500 000 ₽. Касается ли запрет англоязычных интеграций для зарубежной аудитории, неочевидно.</li>
+        <li>Реестр блогеров РКН (от 10 000 подписчиков на площадках из списка: Telegram, VK, YouTube, TikTok и других; Instagram в списке нет) и маркировка рекламы с erid касаются рекламы, которая распространяется в России.</li>
+        <li>TikTok закрыл загрузку видео из России сам. VPN, смена региона и модифицированные приложения нарушают правила площадки и грозят блокировкой аккаунта.</li>
+        <li>Выплаты Meta, TikTok и YouTube резидентам России недоступны. Прием денег от зарубежных брендов продумай до этапа монетизации.</li>
+        <li>Отдельного закона о маркировке AI-контента в России на момент проверки нет.</li>
+      </ul>
+    </div>
+
+    <div class="lines">
+      <div class="side-head"><p class="eyebrow">Красные линии</p><h3>Чего не делать никогда</h3></div>
+      <ul class="marks x">
+        <li>Выдавать персонажа за реального человека</li>
+        <li>Делать лицо похожим на знаменитость или конкретного человека</li>
+        <li>Любые признаки несовершеннолетия</li>
+        <li>Отзывы и «личный опыт» с товарами</li>
+        <li>Реальные болезни, трагедии и катастрофы в сюжете</li>
+        <li>Романтика с подписчиками и сбор денег от лица персонажа</li>
+        <li>Накрутка, боты, массфоловинг</li>
+        <li>Чужие видео и голоса как исходники без согласия</li>
+      </ul>
+    </div>
+    <p class="disclaimer">Это обзор правил на 3 октября 2026, а не юридическая консультация. Перед рекламными контрактами и выбором схемы оплаты проверь детали у юриста.</p>
+  </div>
+</section>
+
+<section class="sec" id="metrics">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Метрики</p>
+      <h2>Метрики и ориентиры</h2>
+      <p class="lead">Публичных бенчмарков именно для AI-аккаунтов почти нет, поэтому главное сравнение идет с медианой собственного аккаунта.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="t-wide">
+        <thead><tr><th>Подписчики</th><th>Фокус</th><th>Действия</th><th>Что открывается</th></tr></thead>
+        <tbody>
+          <tr><th class="num">0–1 000</th><td>Найти форматы</td><td>4–5 постов в неделю, тест рубрик, метки AI с первого дня</td><td>Понимание, что цепляет аудиторию</td></tr>
+          <tr><th class="num">1 000–10 000</th><td>Масштабировать лучшее</td><td>Trial Reels, Collab-посты, медиакит, первые партнерки</td><td>Партнерские программы, питчи AI-инструментам</td></tr>
+          <tr><th class="num">10 000–100 000</th><td>Монетизация</td><td>Интеграции, услуги брендам, YouTube Shorts, офлайн-коллаборация</td><td>Рекламные контракты, лицензирование персонажа</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub">
+      <h3>Что отслеживать каждые две недели</h3>
+      <div class="kpis">
+        <div><b>Удержание 3 секунд</b><span>Сколько зрителей пережили хук. Падает, значит, первый кадр не работает.</span></div>
+        <div><b>Средний процент досмотра</b><span>Главный сигнал качества ролика для обеих площадок.</span></div>
+        <div><b>Отправки на охват</b><span>Сколько раз ролик переслали. В Instagram это ключ к показам новым людям.</span></div>
+        <div><b>Сохранения</b><span>Сохраняют полезное и красивое: подборки, образы, маршруты.</span></div>
+        <div><b>Подписки на охват</b><span>Показывает, продает ли контент сам персонаж, а не только картинку.</span></div>
+        <div><b>Комментарии о картинке</b><span>Если обсуждают руки и губы, вернись к QA-чек-листу.</span></div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>Ориентиры</h3>
+      <div class="stats">
+        <div class="stat"><small>Instagram, частота</small><b>×2+</b><span>рост подписчиков при 3–5 постах в неделю против 1–2</span><small>Buffer, 2,1 млн постов</small></div>
+        <div class="stat"><small>Instagram, форматы</small><b>×2,25</b><span>охват Reels против одиночного фото. Максимум вовлечения дают карусели</span><small>Buffer, 2026</small></div>
+        <div class="stat"><small>TikTok, ER</small><b>4,4%</b><span>у аккаунтов на 1–5 тыс. подписчиков, 3,9% у 10–50 тыс.</span><small>Socialinsider</small></div>
+        <div class="stat"><small>Instagram, ER</small><b>≈ 1,5%</b><span>медиана fashion- и lifestyle-креаторов</span><small>CreatorDB</small></div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>Кейсы, на которые стоит смотреть</h3>
+      <div class="table-wrap">
+        <table class="t-wide">
+          <thead><tr><th>Аккаунт</th><th>Аудитория</th><th>Чему учит</th></tr></thead>
+          <tbody>
+            <tr><th>Aitana López</th><td>404 тыс. в Instagram, ER 1,2% (сентябрь 2026)</td><td>Открыто AI. Неделя расписана как сериал. По словам агентства, около €1 000 за рекламу</td></tr>
+            <tr><th>Imma</th><td>379 тыс. в Instagram</td><td>Слабости делают персонажа живым. Офлайн-кроссовер с IKEA: три дня «жила» в витрине магазина</td></tr>
+            <tr><th>Lil Miquela</th><td>≈ 2,5 млн, теряет ≈ 142 тыс. в год</td><td>Сюжетные арки работают, но реальные болезни в сюжете вызвали скандал</td></tr>
+            <tr><th>Mia Zelu</th><td>284 тыс. в Instagram</td><td>Вирусный рост на постах с Уимблдона и волна негатива из-за спрятанного раскрытия</td></tr>
+            <tr><th>Granny Spills</th><td>≈ 3,1 млн суммарно</td><td>Сильный голос и юмор. TikTok исключил аккаунт из Creator Rewards как неоригинальный</td></tr>
+            <tr><th>Emily Hart, Bindi Raye</th><td>удалены</td><td>Выдавали себя за людей реальных профессий. Meta удалила аккаунты за обманную идентичность</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="small muted side-head"><p class="eyebrow">Обновлено</p><p>3 октября 2026. Тарифы и модели Higgsfield меняются часто, правила площадок тоже: сверяйся перед крупными решениями.</p></div>
+    <details class="src">
+      <summary>Источники</summary>
+      <ol>
+        <li><a href="https://creators.instagram.com/blog/ai-generated-profile-label" target="_blank" rel="noopener">Instagram: метка AI-generated profile</a></li>
+        <li><a href="https://techcrunch.com/2026/08/31/instagram-puts-new-limits-on-undisclosed-ai-profiles/" target="_blank" rel="noopener">TechCrunch: ограничения для AI-профилей без метки, 31.08.2026</a></li>
+        <li><a href="https://about.fb.com/news/2024/04/metas-approach-to-labeling-ai-generated-content-and-manipulated-media/" target="_blank" rel="noopener">Meta: маркировка AI-контента</a></li>
+        <li><a href="https://newsroom.tiktok.com/helping-people-spot-and-understand-ai-generated-content-on-tiktok?lang=en-GB" target="_blank" rel="noopener">TikTok: AI-контент, июль 2026</a></li>
+        <li><a href="https://blog.youtube/news-and-events/improving-ai-labels-for-viewers-and-creators/" target="_blank" rel="noopener">YouTube: новые метки AI, май 2026</a></li>
+        <li><a href="https://support.google.com/youtube/answer/1311392?hl=en" target="_blank" rel="noopener">YouTube: политика монетизации</a></li>
+        <li><a href="https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems" target="_blank" rel="noopener">Еврокомиссия: руководство по статье 50 AI Act, 20.07.2026</a></li>
+        <li><a href="https://www.stibbe.com/publications-and-insights/deep-fakes-real-transparency-labelling-deep-fakes-and-ai-generated-public" target="_blank" rel="noopener">Stibbe: маркировка дипфейков</a></li>
+        <li><a href="https://www.ftc.gov/news-events/news/press-releases/2024/08/federal-trade-commission-announces-final-rule-banning-fake-reviews-testimonials" target="_blank" rel="noopener">FTC: запрет фейковых отзывов</a></li>
+        <li><a href="https://www.cooley.com/news/insight/2026/2026-01-29-new-york-enacts-synthetic-performer-disclosure-law-for-advertisements-including-those-using-generative-ai" target="_blank" rel="noopener">Cooley: закон Нью-Йорка о синтетических исполнителях</a></li>
+        <li><a href="https://higgsfield.ai/terms-of-use-agreement" target="_blank" rel="noopener">Higgsfield: условия использования</a></li>
+        <li><a href="https://higgsfield.ai/blog/sould-id-best-character-consistency" target="_blank" rel="noopener">Higgsfield: Soul ID</a></li>
+        <li><a href="https://higgsfield.ai/blog/how-to-create-ai-influencer" target="_blank" rel="noopener">Higgsfield: гайд по AI-инфлюенсерам</a></li>
+        <li><a href="https://higgsfield.ai/blog/higgsfield-genjutsu" target="_blank" rel="noopener">Higgsfield: Genjutsu</a></li>
+        <li><a href="https://kling.ai/quickstart/motion-control-user-guide" target="_blank" rel="noopener">Kling: Motion Control</a></li>
+        <li><a href="https://www.mindstudio.ai/blog/seedance-kling-minimax-video-model-comparison" target="_blank" rel="noopener">MindStudio: Seedance, Kling и MiniMax для UGC</a></li>
+        <li><a href="https://t-j.ru/ads-ban/" target="_blank" rel="noopener">Т—Ж: запрет рекламы в Instagram</a></li>
+        <li><a href="https://ppc.world/articles/obyazatelnaya-registraciya-blogerov-v-reestre-rkn-10-glavnyh-voprosov-yuristam/" target="_blank" rel="noopener">ppc.world: реестр блогеров РКН</a></li>
+        <li><a href="https://postium.ru/chto-proisxodit-s-tiktok-v-rossii/" target="_blank" rel="noopener">Postium: TikTok в России, март 2026</a></li>
+        <li><a href="https://buffer.com/resources/how-often-to-post-on-instagram/" target="_blank" rel="noopener">Buffer: частота публикаций в Instagram</a></li>
+        <li><a href="https://buffer.com/resources/data-best-content-format-social-media/" target="_blank" rel="noopener">Buffer: лучшие форматы, 2026</a></li>
+        <li><a href="https://later.com/blog/influencer-pricing-benchmarks-the-complete-2026-guide/" target="_blank" rel="noopener">Later: ставки инфлюенсеров 2026</a></li>
+        <li><a href="https://creatordb.app/creatorstats/fit_aitana/" target="_blank" rel="noopener">CreatorDB: Aitana López</a></li>
+        <li><a href="https://digiday.com/media/in-graphic-detail-virtual-influencers-click-with-young-audiences-yet-brands-interest-wanes/" target="_blank" rel="noopener">Digiday: интерес брендов к виртуальным инфлюенсерам</a></li>
+        <li><a href="https://www.linqia.com/2026-state-of-influencer-marketing/" target="_blank" rel="noopener">Linqia: State of Influencer Marketing 2026</a></li>
+      </ol>
+    </details>
+  </div>
+</footer>
+<script>
+(function(){
+  var KEY = "ai-model-roadmap-v1";
+  var state = { items: {}, concept: null };
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.check input[type="checkbox"]'));
+  var total = boxes.length;
+  var syncEl = document.getElementById("sync");
+  var ref = null, cloud = false, canWrite = true;
+  var dirty = false, saving = false, again = false, timer = null, retried = false, gotFirst = false;
+
+  var syncText = {
+    cloud: "Прогресс синхронизируется между устройствами",
+    local: "Прогресс хранится в этом браузере",
+    readonly: "Только просмотр",
+    saving: "Сохраняю…"
+  };
+  function setSync(mode){
+    syncEl.setAttribute("data-state", mode === "saving" ? "cloud" : mode);
+    syncEl.textContent = syncText[mode];
+  }
+
+  function readLocal(){
+    try{
+      var raw = localStorage.getItem(KEY);
+      if(!raw) return;
+      var s = JSON.parse(raw);
+      if(s && typeof s === "object"){
+        state.items = s.items && typeof s.items === "object" ? Object.assign({}, s.items) : {};
+        state.concept = typeof s.concept === "string" ? s.concept : null;
+      }
+    }catch(e){}
+  }
+  function writeLocal(){
+    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+  }
+  function adopt(d){
+    state.items = d.items && typeof d.items === "object" ? Object.assign({}, d.items) : {};
+    state.concept = typeof d.concept === "string" ? d.concept : null;
+    writeLocal();
+    render();
+  }
+
+  function render(){
+    var done = 0;
+    boxes.forEach(function(b){
+      var on = !!state.items[b.getAttribute("data-id")];
+      b.checked = on;
+      b.disabled = !canWrite;
+      b.closest(".check").classList.toggle("done", on);
+      if(on) done++;
+    });
+    document.getElementById("pDone").textContent = done;
+    document.getElementById("pTotal").textContent = total;
+    var pct = total ? Math.round(done / total * 100) : 0;
+    var meter = document.getElementById("pMeter");
+    meter.querySelector("i").style.width = pct + "%";
+    meter.setAttribute("aria-valuenow", String(pct));
+    document.querySelectorAll("[data-phase]").forEach(function(el){
+      var p = el.getAttribute("data-phase") + "-";
+      var list = boxes.filter(function(b){ return b.getAttribute("data-id").indexOf(p) === 0; });
+      var d = list.filter(function(b){ return b.checked; }).length;
+      var share = list.length ? d / list.length : 0;
+      var fill = el.querySelector(".g-bar i, .ph-prog .meter i");
+      if(fill) fill.style.width = Math.round(share * 100) + "%";
+      var c = el.querySelector("[data-count]");
+      if(c) c.textContent = d + "/" + list.length;
+    });
+    document.querySelectorAll("[data-concept]").forEach(function(btn){
+      var k = btn.getAttribute("data-concept");
+      var on = state.concept === k;
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      btn.textContent = on ? "Выбрано: " + k : "Выбрать " + k;
+      btn.disabled = !canWrite;
+      var card = btn.closest(".concept");
+      card.classList.toggle("is-picked", on);
+      var chip = card.querySelector("[data-picked]");
+      if(chip) chip.hidden = !on;
+    });
+  }
+
+  function commit(){
+    render();
+    writeLocal();
+    if(!cloud || !canWrite) return;
+    dirty = true;
+    setSync("saving");
+    clearTimeout(timer);
+    timer = setTimeout(flush, 500);
+  }
+
+  function flush(){
+    if(!ref || !canWrite) return;
+    if(!gotFirst || saving){ again = true; return; }
+    saving = true;
+    var body = { items: Object.assign({}, state.items), concept: state.concept, updatedAt: new Date().toISOString() };
+    ref.set(body).then(function(){
+      saving = false;
+      retried = false;
+      if(again){ again = false; flush(); return; }
+      dirty = false;
+      setSync("cloud");
+    }, function(err){
+      saving = false;
+      var code = err && err.code;
+      if(code === "unavailable" && !retried){
+        retried = true;
+        setTimeout(flush, 700 + Math.random() * 900);
+        return;
+      }
+      dirty = false;
+      if(code === "invalid_argument"){
+        canWrite = false;
+        setSync("readonly");
+        render();
+        return;
+      }
+      cloud = false;
+      setSync("local");
+    });
+  }
+
+  function subscribe(){
+    ref.onSnapshot(function(snap){
+      if(!gotFirst){
+        if(!snap.exists && snap.metadata && snap.metadata.fromCache) return;
+        gotFirst = true;
+        var server = snap.exists ? (snap.data() || {}) : null;
+        var sItems = server && server.items && typeof server.items === "object" ? server.items : {};
+        if(dirty || again){
+          state.items = Object.assign({}, sItems, state.items);
+          if(!state.concept && server && typeof server.concept === "string") state.concept = server.concept;
+          again = false;
+          render();
+          writeLocal();
+          flush();
+          return;
+        }
+        if(server){ adopt(server); return; }
+        if(canWrite && (Object.keys(state.items).length || state.concept)){
+          dirty = true;
+          flush();
+        }
+        return;
+      }
+      if(dirty || saving) return;
+      if(snap.exists) adopt(snap.data() || {});
+    }, function(){
+      cloud = false;
+      setSync(canWrite ? "local" : "readonly");
+    });
+  }
+
+  function startCloud(){
+    if(!window.claude || typeof window.claude.use !== "function") return;
+    window.claude.use("db").then(function(db){
+      if(!db) return;
+      try{ ref = db.doc("progress/main"); }catch(e){ return; }
+      cloud = true;
+      setSync("cloud");
+      return window.claude.use("user").then(function(u){
+        return u ? u.can("data.write") : null;
+      }).catch(function(){ return null; }).then(function(can){
+        if(can === false){
+          canWrite = false;
+          setSync("readonly");
+          render();
+        }
+        subscribe();
+      });
+    }).catch(function(){});
+  }
+
+  boxes.forEach(function(b){
+    b.addEventListener("change", function(){
+      if(!canWrite){ render(); return; }
+      var id = b.getAttribute("data-id");
+      if(b.checked) state.items[id] = true; else delete state.items[id];
+      commit();
+    });
+  });
+
+  document.querySelectorAll("[data-concept]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      if(!canWrite) return;
+      var k = btn.getAttribute("data-concept");
+      if(state.concept === k){
+        state.concept = null;
+        delete state.items["f0-concept"];
+      }else{
+        state.concept = k;
+        state.items["f0-concept"] = true;
+      }
+      commit();
+    });
+  });
+
+  document.querySelectorAll("[data-copy]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var pre = document.getElementById(btn.getAttribute("data-copy"));
+      if(!pre) return;
+      function ok(){
+        btn.textContent = "Скопировано";
+        btn.classList.add("ok");
+        setTimeout(function(){ btn.textContent = "Копировать"; btn.classList.remove("ok"); }, 1600);
+      }
+      function fallback(){
+        var r = document.createRange();
+        r.selectNodeContents(pre);
+        var s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(r);
+        btn.textContent = "Текст выделен";
+        setTimeout(function(){ btn.textContent = "Копировать"; }, 2000);
+      }
+      try{ navigator.clipboard.writeText(pre.textContent).then(ok, fallback); }catch(e){ fallback(); }
+    });
+  });
+
+  var links = Array.prototype.slice.call(document.querySelectorAll(".modes a"));
+  var byId = {};
+  links.forEach(function(a){ byId[a.getAttribute("href").slice(1)] = a; });
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var a = byId[en.target.id];
+        if(!a) return;
+        links.forEach(function(x){ x.classList.remove("on"); });
+        a.classList.add("on");
+        var ul = a.parentNode.parentNode;
+        var left = a.offsetLeft - 20;
+        if(left < ul.scrollLeft || a.offsetLeft + a.offsetWidth > ul.scrollLeft + ul.clientWidth){
+          ul.scrollLeft = Math.max(0, left);
+        }
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    document.querySelectorAll("main > section[id]").forEach(function(s){ io.observe(s); });
+  }
+
+  readLocal();
+  render();
+  startCloud();
+})();
+</script>
+</body></html>
